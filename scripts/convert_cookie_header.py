@@ -28,7 +28,7 @@ def convert(raw: str) -> str:
 def main() -> int:
     src = Path(sys.argv[1]) if len(sys.argv) > 1 else Path("cookies/raw_header.txt")
     dst = Path(sys.argv[2]) if len(sys.argv) > 2 else Path("cookies/youtube.txt")
-    raw = src.read_text(encoding="utf-8").strip()
+    raw = src.read_text(encoding="utf-8-sig").strip()
     dst.parent.mkdir(parents=True, exist_ok=True)
     dst.write_text(convert(raw), encoding="utf-8")
     print(f"Wrote {dst} ({len(raw.split(';'))} parts)")

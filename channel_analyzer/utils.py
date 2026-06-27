@@ -120,6 +120,8 @@ def merge_ytdlp_opts(base: dict, config: Any | None = None) -> dict:
     deno = _deno_executable()
     if deno and "js_runtimes" not in opts:
         opts["js_runtimes"] = {"deno": deno}
+        # yt-dlp 2026+ needs EJS solver scripts for YouTube signature challenges
+        opts.setdefault("remote_components", ["ejs:github"])
     return opts
 
 
