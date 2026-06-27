@@ -38,4 +38,5 @@ ssh-key*.key.pub
 oracle_key.pem
 cookies/*.txt
 cookies/*.txt.*
+cookies/raw_header.txt
 !cookies/README.md
