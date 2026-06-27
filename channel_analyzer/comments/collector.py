@@ -12,7 +12,7 @@ from tqdm import tqdm
 
 from channel_analyzer.comments.models import RawComment
 from channel_analyzer.config import Config
-from channel_analyzer.utils import load_json, merge_ytdlp_opts, read_csv, save_json
+from channel_analyzer.utils import load_json, merge_ytdlp_opts, read_csv, save_json, YTDLP_METADATA_FORMAT
 
 logger = logging.getLogger(__name__)
 
@@ -67,6 +67,7 @@ def fetch_video_comments(
             "quiet": True,
             "no_warnings": True,
             "skip_download": True,
+            "format": YTDLP_METADATA_FORMAT,
             "getcomments": True,
             "extractor_args": {"youtube": {"max_comments": [str(max_comments)]}},
         },

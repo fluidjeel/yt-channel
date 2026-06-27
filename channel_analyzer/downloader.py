@@ -10,7 +10,7 @@ import yt_dlp
 from tqdm import tqdm
 
 from channel_analyzer.config import Config
-from channel_analyzer.utils import load_json, merge_ytdlp_opts, read_csv, save_json
+from channel_analyzer.utils import load_json, merge_ytdlp_opts, read_csv, save_json, YTDLP_DOWNLOAD_FORMAT
 
 logger = logging.getLogger(__name__)
 
@@ -31,7 +31,7 @@ def _download_single(video_id: str, url: str, out_dir: Path, config: Config | No
             "writeinfojson": False,
             "quiet": True,
             "no_warnings": True,
-            "format": "best[ext=mp4]/best",
+            "format": YTDLP_DOWNLOAD_FORMAT,
             "merge_output_format": "mp4",
         },
         config,

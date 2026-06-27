@@ -19,6 +19,7 @@ from channel_analyzer.utils import (
     parse_upload_date,
     safe_float,
     safe_int,
+    YTDLP_METADATA_FORMAT,
 )
 
 logger = logging.getLogger(__name__)
@@ -98,6 +99,7 @@ def _enrich_entry(entry: dict[str, Any], source: str, config: Config | None = No
             "quiet": True,
             "no_warnings": True,
             "skip_download": True,
+            "format": YTDLP_METADATA_FORMAT,
         },
         config,
     )

@@ -14,12 +14,11 @@ queue:
     url: https://www.youtube.com/@SoulfulLinesYT
   - slug: whispering_souls
     url: https://www.youtube.com/@WhisperingSoulsYT
+  - slug: dark_poetry_hub
+    url: https://www.youtube.com/channel/UCaJ-H9tCXwWMFt-sL7YQM1w
   quote_channels:
   - slug: cozy_oni
     url: https://www.youtube.com/@cozyoni
   self_improvement:
   - slug: uck_jep_r7_jm_s36taj_d34_gp4_va
     url: https://www.youtube.com/channel/UCkJEpR7JmS36tajD34Gp4VA
-  faceless_storytelling:
-  - slug: my_mind_garden
-    url: https://www.youtube.com/@MyMindGardenYT

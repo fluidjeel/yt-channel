@@ -13,11 +13,11 @@ sys.path.insert(0, str(PROJECT_ROOT))
 
 # 10% pilot — diverse, likely viable (full cycle validation)
 PHASE1_SLUGS = [
-    "soulful_lines",  # validated benchmark
+    "soulful_lines",
     "whispering_souls",
     "cozy_oni",
     "uck_jep_r7_jm_s36taj_d34_gp4_va",
-    "my_mind_garden",
+    "dark_poetry_hub",  # replaces my_mind_garden (no Shorts on VM)
 ]
 
 # 60% scale — phase1 + additional slugs from main queue (priority order)

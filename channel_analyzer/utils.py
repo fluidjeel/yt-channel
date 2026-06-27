@@ -105,7 +105,15 @@ def merge_ytdlp_opts(base: dict, config: Any | None = None) -> dict:
         cookies = Path(env)
     if cookies and cookies.exists():
         opts["cookiefile"] = str(cookies)
+    # Flat playlist scans must not set format; metadata/download benefit from fallbacks.
+    if not opts.get("extract_flat"):
+        opts.setdefault("ignore_no_formats_error", True)
     return opts
+
+
+# Shorts-friendly format chains (strict mp4-only often fails on YouTube Shorts)
+YTDLP_DOWNLOAD_FORMAT = "bestvideo*+bestaudio/best/b"
+YTDLP_METADATA_FORMAT = "best/b"
 
 
 def read_csv(path: Path) -> pd.DataFrame:

@@ -14,6 +14,8 @@ queue:
     url: https://www.youtube.com/@SoulfulLinesYT
   - slug: whispering_souls
     url: https://www.youtube.com/@WhisperingSoulsYT
+  - slug: dark_poetry_hub
+    url: https://www.youtube.com/channel/UCaJ-H9tCXwWMFt-sL7YQM1w
   - slug: deep_verse
     url: https://www.youtube.com/@DeepVerseYT
   quote_channels:
@@ -72,6 +74,3 @@ queue:
     url: https://www.youtube.com/channel/UCYNeMZCNsfZD6eDBd6bzktQ
   - slug: uc0o_wqx_m0i_lsy7_ne_znf_mpucw
     url: https://www.youtube.com/channel/UC0oWQxM0iLsy7NeZnfMPucw
-  faceless_storytelling:
-  - slug: my_mind_garden
-    url: https://www.youtube.com/@MyMindGardenYT
