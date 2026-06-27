@@ -1,0 +1,47 @@
+# Phase 3 — Channel Corpus Sprint queue
+# Add channels per niche; runner skips entries with status: complete
+# Re-run: python scripts/corpus_sprint.py --queue corpus_queue.yaml
+
+pipeline:
+  top_n_download: 12
+  top_n_report: 8
+  max_videos_discover: 60
+  whisper_model: tiny
+  run_advanced_visual: true
+  run_comment_intelligence: true
+  run_bible_synthesis: false   # LLM — off for scale validation
+
+target_counts:
+  emotional_healing: 25
+  quote_channels: 25
+  self_improvement: 25
+  faceless_storytelling: 25
+
+# Seed from validated cohort; expand via competitor_acquisition or manual URLs
+queue:
+  emotional_healing:
+    - slug: whisprs_yt
+      url: https://www.youtube.com/@WhisprsYT
+      status: complete
+    - slug: soulful_lines
+      url: https://www.youtube.com/@SoulfulLinesYT
+    - slug: soulxsigh
+      url: https://www.youtube.com/channel/UC02xh2C0BZsEri175ZAU0tw
+      status: complete
+    - slug: thefallenpoet
+      url: https://www.youtube.com/@thefallenpoet
+    - slug: deep_verse
+      url: https://www.youtube.com/@DeepVerseYT
+    - slug: whispering_souls
+      url: https://www.youtube.com/@WhisperingSoulsYT
+
+  quote_channels:
+    - slug: dark_poetry_hub
+      url: https://www.youtube.com/@DarkPoetryHub
+      status: complete
+
+  self_improvement: []
+
+  faceless_storytelling:
+    - slug: the_faceless_storyteller
+      url: https://www.youtube.com/@TheFacelessStoryteller

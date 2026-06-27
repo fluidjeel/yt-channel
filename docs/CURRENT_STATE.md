@@ -169,3 +169,33 @@ Outputs:
 - `reports/{slug}/channel_intelligence_report.md` — six-section human report (no LLM)
 
 **Not shipped:** Web UI, API server, billing, automatic creator outreach.
+
+## Oracle worker (build server) **SHIPPED**
+
+Reproducible VM setup — not agents, not GPU workloads:
+
+| Script | Purpose |
+| --- | --- |
+| `scripts/setup_oracle_worker.sh` | apt deps, clone `~/projects/yt-channel`, venv, `--check-deps` |
+| `scripts/run_mvp_in_tmux.sh` | Long runs in tmux; logs to `~/logs/` |
+| `.env.example` | Optional keys in `~/.env` (MVP path needs none) |
+
+VM layout: `~/projects/yt-channel`, `~/data`, `~/logs`, tmux session `yt`.
+
+## Phase 3 — Corpus Sprint **SHIPPED** (runner)
+
+Scale validation before creator interviews. No new analyzers.
+
+| Artifact | Purpose |
+| --- | --- |
+| `corpus_queue.yaml` | Niche buckets + URL queue (target: 100 channels) |
+| `scripts/corpus_sprint.py` | Queue → pipeline → assembler → archive; logs `data/corpus/run_log.jsonl` |
+| `scripts/analyze_corpus.py` | Empty fields, LOW confidence, repetitive recs → `reports/corpus_analysis.md` |
+
+```bash
+python scripts/corpus_sprint.py --queue corpus_queue.yaml --limit 5
+python scripts/analyze_corpus.py
+bash scripts/run_mvp_in_tmux.sh "URL"   # single channel on Oracle
+```
+
+Bible synthesis **off** by default in corpus queue (LLM-free scale path).

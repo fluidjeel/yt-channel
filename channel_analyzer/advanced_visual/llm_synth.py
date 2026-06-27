@@ -16,6 +16,7 @@ logger = logging.getLogger(__name__)
 
 ENV_SEARCH_PATHS = [
     Path(__file__).resolve().parents[2] / ".env",
+    Path.home() / ".env",
     Path("C:/Manasjit/ai/swarm-ai/.env"),
 ]
 
