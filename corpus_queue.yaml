@@ -1,7 +1,3 @@
-# Phase 3 — Channel Corpus Sprint queue
-# Add channels per niche; runner skips entries with status: complete
-# Re-run: python scripts/corpus_sprint.py --queue corpus_queue.yaml
-
 pipeline:
   top_n_download: 12
   top_n_report: 8
@@ -9,39 +5,123 @@ pipeline:
   whisper_model: tiny
   run_advanced_visual: true
   run_comment_intelligence: true
-  run_bible_synthesis: false   # LLM — off for scale validation
-
+  run_bible_synthesis: false
 target_counts:
   emotional_healing: 25
   quote_channels: 25
   self_improvement: 25
   faceless_storytelling: 25
-
-# Seed from validated cohort; expand via competitor_acquisition or manual URLs
 queue:
   emotional_healing:
-    - slug: whisprs_yt
-      url: https://www.youtube.com/@WhisprsYT
-      status: complete
-    - slug: soulful_lines
-      url: https://www.youtube.com/@SoulfulLinesYT
-    - slug: soulxsigh
-      url: https://www.youtube.com/channel/UC02xh2C0BZsEri175ZAU0tw
-      status: complete
-    - slug: thefallenpoet
-      url: https://www.youtube.com/@thefallenpoet
-    - slug: deep_verse
-      url: https://www.youtube.com/@DeepVerseYT
-    - slug: whispering_souls
-      url: https://www.youtube.com/@WhisperingSoulsYT
-
+  - slug: whisprs_yt
+    url: https://www.youtube.com/@WhisprsYT
+    status: complete
+  - slug: thefallenpoet
+    url: https://www.youtube.com/@thefallenpoet
+  - slug: deep_verse
+    url: https://www.youtube.com/@DeepVerseYT
+  - slug: whispering_souls
+    url: https://www.youtube.com/@WhisperingSoulsYT
+  - slug: soulful_lines
+    url: https://www.youtube.com/@SoulfulLinesYT
+    status: complete
+  - slug: soulxsigh
+    url: https://www.youtube.com/channel/UC02xh2C0BZsEri175ZAU0tw
+    status: complete
+  - slug: dark_poetry_hub
+    url: https://www.youtube.com/channel/UCaJ-H9tCXwWMFt-sL7YQM1w
+    status: complete
   quote_channels:
-    - slug: dark_poetry_hub
-      url: https://www.youtube.com/@DarkPoetryHub
-      status: complete
-
-  self_improvement: []
-
+  - slug: lofi_geisha
+    url: https://www.youtube.com/@lofigeisha
+  - slug: cozy_oni
+    url: https://www.youtube.com/@cozyoni
+  - slug: lofi_tokyo
+    url: https://www.youtube.com/@LoFi_TOKYOCITY
+  self_improvement:
+  - slug: uccr5eci_ejimv_x2o1ti_youkq
+    url: https://www.youtube.com/channel/UCCR5eciEJIMvX2o1tiYOUKQ
+  - slug: uck_jep_r7_jm_s36taj_d34_gp4_va
+    url: https://www.youtube.com/channel/UCkJEpR7JmS36tajD34Gp4VA
+  - slug: uc6z7_uni_fj1_y_0f_j51_z0va_w
+    url: https://www.youtube.com/channel/UC6z7UNiFJ1Y-0fJ51Z0va_w
+  - slug: uccib_s8grf_u_rh0bec5g_td5_q
+    url: https://www.youtube.com/channel/UCCibS8grf-uRH0bec5gTd5Q
+  - slug: ucj_d2yhx7_itf_hib8_imi_dfa_pw
+    url: https://www.youtube.com/channel/UCjD2yhx7ITfHIB8IMiDfaPw
+  - slug: uck_e6_zz_ux_uy_xmp688ib_rwa
+    url: https://www.youtube.com/channel/UCkE6ZzUxUY_XMP688ib-RWA
+  - slug: ucb95x_csst23_wc2_fj3_bqqmg_a
+    url: https://www.youtube.com/channel/UCb95xCSst23WC2FJ3BQqmgA
+  - slug: uc8_p3sr_ce55m_kq5_pbjq_i_mj_q
+    url: https://www.youtube.com/channel/UC8P3srCe55mKQ5PBJqI_MjQ
+  - slug: ucg_oa9_fhqui8yfe_htw_w7g4n_q
+    url: https://www.youtube.com/channel/UCgOa9Fhqui8yfeHTwW7g4nQ
+  - slug: uc0u_gc_ebw_axw3ljqe_gjy2qw
+    url: https://www.youtube.com/channel/UC0uGC_EBwAxw3ljqeGjy2qw
+  - slug: uc6gw68_ouc_jvjkbr_iivk_yvsw
+    url: https://www.youtube.com/channel/UC6gw68OUcJVJKBrIIVkYVsw
+  - slug: ucbn_hzuk_oqg73h7g_wi_iu0_ita
+    url: https://www.youtube.com/channel/UCBnHZUkOqg73h7gWiIu0ITA
+  - slug: uc2_fr_ph_vnvd_eegu4_ijedigd_q
+    url: https://www.youtube.com/channel/UC2FrPhVNvdEEgu4IJEDigdQ
+  - slug: ucm3_uzg_ap4d_tj_fh_wf2_wcvu_aa
+    url: https://www.youtube.com/channel/UCM3UZgAp4dTjFhWF2WcvuAA
+  - slug: ucebaodh_sar04x_1_vhh6h2_ig
+    url: https://www.youtube.com/channel/UCEBAodhSar04x-1Vhh6h2Ig
+  - slug: uc8_rz_a51ax_a_t_ar2_alu_ee_ama
+    url: https://www.youtube.com/channel/UC8RzA51axA_tAR2ALuEeAMA
+  - slug: uc5s_ztr_l_olt_t_c_ogb_rxao_hw
+    url: https://www.youtube.com/channel/UC5sZTrL-OltT-cOgbRXaoHw
+  - slug: ucb_lkk_o7_d8_pwpqumq3xhd_jq
+    url: https://www.youtube.com/channel/UCbLKkO7D8_pwpqumq3xhdJQ
+  - slug: ucdtx_f3_z_6gu_jw_bcu144n_gva
+    url: https://www.youtube.com/channel/UCDtxF3Z_6guJwBCU144nGVA
+  - slug: uca9_pve_qrjn_xn4_ez_mxt_t4_qrg
+    url: https://www.youtube.com/channel/UCA9PveQRJnXn4EzMXtT4Qrg
+  - slug: uc3p_ifz_qb_oll0_tn_edh1_uu5_gw
+    url: https://www.youtube.com/channel/UC3pIfzQbOLL0TnEDH1UU5Gw
+  - slug: ucgs_hlik_wm8af_josnh_nks2_sq
+    url: https://www.youtube.com/channel/UCgsHLikWm8afJOsnhNKS2SQ
+  - slug: ucyne_mzcnsf_zd6e_dbd6bzkt_q
+    url: https://www.youtube.com/channel/UCYNeMZCNsfZD6eDBd6bzktQ
+  - slug: uc0o_wqx_m0i_lsy7_ne_znf_mpucw
+    url: https://www.youtube.com/channel/UC0oWQxM0iLsy7NeZnfMPucw
+  - slug: uc_nq_s_ey8g_kioitx_q_1d_poq
+    url: https://www.youtube.com/channel/UC_NqS_Ey8gKIOITxQ-1dPOQ
+  - slug: uce_a6_imxobi_iw_hpoz_rq_mw_jg
+    url: https://www.youtube.com/channel/UCe_a6IMxobiIwHpozRqMwJg
+  - slug: ucsp_mhs_nq_sq_jhib7z_ydzdhw
+    url: https://www.youtube.com/channel/UCspMHsNQ_sqJHIB7zYDZDhw
+  - slug: ucpp_qelu8z3_uw9ra_dhka_a_a_q
+    url: https://www.youtube.com/channel/UCPpQElu8z3Uw9raDHkaA_aQ
+  - slug: ucrf_oit0_mvw5lr_ysfx_fhcng_a
+    url: https://www.youtube.com/channel/UCrfOit0MVW5lrYSfxFhcngA
+  - slug: uck_nhu_ce5b_aexn_x5_cc_hqqt_a
+    url: https://www.youtube.com/channel/UCK_NHuCE5bAEXnX5CcHQqtA
+  - slug: ucb_rxid_w3_ya_c7_l_aa_isz_ggw
+    url: https://www.youtube.com/channel/UCb-RXIdW3YaC7L-AaISzGgw
+  - slug: uca_p0u_uo_t_vxhfxg_nbh_wtr_cw
+    url: https://www.youtube.com/channel/UCaP0uUoT_VxhfxgNbhWtrCw
+  - slug: uc_j9_as_wf60bf9_eupg_h7_jzm_a
+    url: https://www.youtube.com/channel/UC-j9AsWf60bf9EUPgH7JzmA
+  - slug: uck_uqpb_esntg_mob_r7_chit_kbg
+    url: https://www.youtube.com/channel/UCkUQPbEsntgMObR7ChitKbg
+  - slug: uck2_bq0_l7_oqkxpw0l9_a5_kxq
+    url: https://www.youtube.com/channel/UCK2Bq0-l7OQKXPw0l9A5KXQ
+  - slug: ucvgi_nh_hevb_pq_pj_x02ul_pg_a
+    url: https://www.youtube.com/channel/UCvgiNhHEVB_pqPjX02ulPgA
+  - slug: ucgeu9_bw_tsv79r_bts5w_oqvb_q
+    url: https://www.youtube.com/channel/UCGEu9BwTSV79rBTS5wOqvbQ
+  - slug: uco5h_cv5_fzwdz_x7_gb_3_bi_bw
+    url: https://www.youtube.com/channel/UCO5hCv5FZWdzX7_gb_3BiBw
+  - slug: uchf5_eann4w_cwu_jw6_hwe_kv_aa
+    url: https://www.youtube.com/channel/UChf5EANn4wCWuJW6HweKvAA
+  - slug: ucw51bdns_aqg5_og9_xqip_iyn_q
+    url: https://www.youtube.com/channel/UCw51bdnsAQg5OG9XQIpIynQ
   faceless_storytelling:
-    - slug: the_faceless_storyteller
-      url: https://www.youtube.com/@TheFacelessStoryteller
+  - slug: the_faceless_storyteller
+    url: https://www.youtube.com/@TheFacelessStoryteller
+    status: complete
+  - slug: my_mind_garden
+    url: https://www.youtube.com/@MyMindGardenYT
