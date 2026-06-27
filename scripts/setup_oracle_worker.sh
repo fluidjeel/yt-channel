@@ -10,7 +10,14 @@ echo "==> System packages"
 sudo apt-get update
 sudo DEBIAN_FRONTEND=noninteractive apt-get install -y \
   git python3-pip python3-venv ffmpeg libsndfile1 build-essential \
-  tmux htop rsync
+  tmux htop rsync unzip
+
+echo "==> Deno (yt-dlp YouTube JS runtime)"
+if ! command -v deno >/dev/null 2>&1; then
+  curl -fsSL https://deno.land/install.sh | sh
+fi
+export PATH="${HOME}/.deno/bin:${PATH}"
+deno --version || echo "WARN: deno install failed — YouTube downloads may fail"
 
 echo "==> Workspace dirs"
 mkdir -p "$HOME/projects" "$HOME/data" "$HOME/logs"

@@ -210,6 +210,6 @@ python scripts/corpus_sprint.py --queue corpus_queue_phase2.yaml
 
 Oracle: `tmux session corpus` via `scripts/start_corpus_tmux.sh` (defaults to phase1).
 
-**2025-06-27:** yt-dlp format fallback (`bestvideo*+bestaudio/best/b`) + `ignore_no_formats_error`; phase1 swaps `my_mind_garden` → `dark_poetry_hub`.
+**2025-06-27:** yt-dlp format fallback (`bestvideo*+bestaudio/best/b`) + `ignore_no_formats_error`; phase1 swaps `my_mind_garden` → `dark_poetry_hub`. Deno JS runtime wired in `merge_ytdlp_opts`. **Blocker:** stale YouTube cookies on Oracle — refresh via `docs/CORPUS_ORACLE_RUNBOOK.md` + `scripts/deploy_cookies_to_oracle.ps1`.
 
 Bible synthesis **off** in corpus queue (LLM-free scale path).

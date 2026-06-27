@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import logging
 import re
+import shutil
 from datetime import datetime, timezone
 import os
 from pathlib import Path
@@ -94,6 +95,14 @@ def write_markdown(path: Path, title: str, sections: dict[str, str]) -> None:
     path.write_text("\n".join(lines), encoding="utf-8")
 
 
+def _deno_executable() -> str | None:
+    """Return deno path if installed (required by yt-dlp 2026+ for YouTube JS challenges)."""
+    home_deno = Path.home() / ".deno" / "bin" / "deno"
+    if home_deno.is_file():
+        return str(home_deno)
+    return shutil.which("deno")
+
+
 def merge_ytdlp_opts(base: dict, config: Any | None = None) -> dict:
     """Add cookiefile to yt-dlp opts when configured (avoids YouTube bot blocks on VMs)."""
     opts = dict(base)
@@ -108,6 +117,9 @@ def merge_ytdlp_opts(base: dict, config: Any | None = None) -> dict:
     # Flat playlist scans must not set format; metadata/download benefit from fallbacks.
     if not opts.get("extract_flat"):
         opts.setdefault("ignore_no_formats_error", True)
+    deno = _deno_executable()
+    if deno and "js_runtimes" not in opts:
+        opts["js_runtimes"] = {"deno": deno}
     return opts
 
 

@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
+export PATH="${HOME}/.deno/bin:${PATH}"
 cd /home/ubuntu/yt-channel
 source .venv/bin/activate
 QUEUE="${CORPUS_QUEUE:-corpus_queue_phase1.yaml}"
