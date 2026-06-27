@@ -182,20 +182,30 @@ Reproducible VM setup — not agents, not GPU workloads:
 
 VM layout: `~/projects/yt-channel`, `~/data`, `~/logs`, tmux session `yt`.
 
-## Phase 3 — Corpus Sprint **SHIPPED** (runner)
+## Phase 3 — Corpus Sprint **SHIPPED** (phased)
 
 Scale validation before creator interviews. No new analyzers.
 
 | Artifact | Purpose |
 | --- | --- |
-| `corpus_queue.yaml` | Niche buckets + URL queue (target: 100 channels) |
-| `scripts/corpus_sprint.py` | Queue → pipeline → assembler → archive; logs `data/corpus/run_log.jsonl` |
-| `scripts/analyze_corpus.py` | Empty fields, LOW confidence, repetitive recs → `reports/corpus_analysis.md` |
+| `corpus_queue.yaml` | Full list (52 channels; target 100) |
+| `corpus_queue_phase1.yaml` | **10% pilot** (5 channels, full cycle + `--force`) |
+| `corpus_queue_phase2.yaml` | **60% scale** (31 channels) — run after phase 1 gate |
+| `scripts/build_corpus_phases.py` | Regenerate phase1/phase2 from main queue |
+| `scripts/corpus_sprint.py` | Queue → pipeline → assembler; `data/corpus/run_log.jsonl` |
+| `scripts/analyze_corpus.py` | Failure patterns → `reports/corpus_analysis.md` |
+
+**Phased workflow:**
 
 ```bash
-python scripts/corpus_sprint.py --queue corpus_queue.yaml --limit 5
+# Phase 1 — 10% pilot (~5 channels, ~3–8 hours on Oracle)
+python scripts/corpus_sprint.py --queue corpus_queue_phase1.yaml --force
 python scripts/analyze_corpus.py
-bash scripts/run_mvp_in_tmux.sh "URL"   # single channel on Oracle
+
+# Gate: ≥3 pipeline_status full OR clear failure taxonomy → then phase 2
+python scripts/corpus_sprint.py --queue corpus_queue_phase2.yaml
 ```
 
-Bible synthesis **off** by default in corpus queue (LLM-free scale path).
+Oracle: `tmux session corpus` via `scripts/start_corpus_tmux.sh` (defaults to phase1).
+
+Bible synthesis **off** in corpus queue (LLM-free scale path).
