@@ -1,0 +1,61 @@
+# Emotional Healing — Emotion Model
+
+id: emotional_healing
+version: "1.0"
+
+intensity_scale:
+  min: 1
+  max: 10
+  target_range: [3, 5]
+  rule: Never pure extremes; always dual-emotion transitions
+
+dominant_emotions:
+  - acceptance
+  - resilience
+  - hope
+  - healing
+  - love
+  - loneliness
+  - self_worth
+  - growth
+  - gratitude
+
+dual_emotion_pairs:
+  - primary: love
+    secondary: acceptance
+    expression: Deep love without desperation
+  - primary: sadness
+    secondary: hope
+    expression: Hurts but will survive
+  - primary: loneliness
+    secondary: peace
+    expression: Alone right now, okay
+  - primary: exhaustion
+    secondary: determination
+    expression: Tired but continuing
+  - primary: longing
+    secondary: self_respect
+    expression: Miss you, don't need you to survive
+  - primary: pain
+    secondary: growth
+    expression: Changed and learned
+  - primary: happiness
+    secondary: reflection
+    expression: Quiet gratitude, not laughter
+
+character_emotion_rule: >
+  Every character should look like they experienced pain, learned something,
+  and still believe tomorrow can be better.
+
+expression_channels:
+  eyes: high  # primary carrier
+  mouth: low   # neutral or slight curve
+  posture: medium
+  environment: medium  # sky, horizon as emotional mirror
+
+cultural_notes:
+  storytelling_style: east_asian_inspired_subtlety
+  avoid:
+    - exaggerated_crying
+    - screaming_joy
+    - anime_shock_faces

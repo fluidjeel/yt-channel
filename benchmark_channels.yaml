@@ -1,0 +1,65 @@
+# Benchmark Channel Program — niche validation cohort
+# Groups: direct competitors, larger channels, outliers
+# Re-run: python -m channel_analyzer.benchmark_program
+
+reference_channel: whisprs_yt
+
+# Pipeline overrides for benchmark runs (faster than full reference analysis)
+benchmark_pipeline:
+  top_n_download: 15
+  top_n_report: 10
+  max_videos_discover: 80
+  whisper_model: tiny
+
+channels:
+  direct_competitors:
+    - slug: whisprs_yt
+      name: Whisprs
+      url: https://www.youtube.com/@WhisprsYT
+      use_existing: true  # import from root data/ and reports/
+
+    - slug: thefallenpoet
+      name: thefallenpoet
+      url: https://www.youtube.com/@thefallenpoet
+
+    - slug: deep_verse
+      name: Deep Verse
+      url: https://www.youtube.com/@DeepVerseYT
+
+    - slug: whispering_souls
+      name: Whispering Souls
+      url: https://www.youtube.com/@WhisperingSoulsYT
+
+    - slug: soulful_lines
+      name: Soulful Lines
+      url: https://www.youtube.com/@SoulfulLinesYT
+
+    - slug: soulxsigh
+      name: soulxsigh
+      url: https://www.youtube.com/channel/UC02xh2C0BZsEri175ZAU0tw
+
+    - slug: dark_poetry_hub
+      name: Dark Poetry Hub
+      url: https://www.youtube.com/channel/UCaJ-H9tCXwWMFt-sL7YQM1w
+
+  larger_channels:
+    - slug: lofi_geisha
+      name: Lofi Geisha
+      url: https://www.youtube.com/@lofigeisha
+
+    - slug: cozy_oni
+      name: Cozy Oni
+      url: https://www.youtube.com/@cozyoni
+
+    - slug: lofi_tokyo
+      name: LoFi Tokyo
+      url: https://www.youtube.com/@LoFi_TOKYOCITY
+
+  outlier_channels:
+    - slug: the_faceless_storyteller
+      name: The Faceless Storyteller
+      url: https://www.youtube.com/@TheFacelessStoryteller
+
+    - slug: my_mind_garden
+      name: My Mind Garden
+      url: https://www.youtube.com/@MyMindGardenYT

@@ -1,0 +1,108 @@
+# Emotional Taxonomy v1 — visual expression + comment themes (where available)
+
+version: 1
+
+visual_expression:
+  - id: acceptance
+    label: Acceptance (visual expression tag)
+    tier: whisprs_specific
+    supporting_channels: [whisprs_yt]
+    contradicting_channels: [the_faceless_storyteller]
+    confidence: 0.88
+    per_channel:
+      whisprs_yt: { frames_pct: 46, dominant_top_pct: 90 }
+      soulful_lines: { frames_pct: 28, dominant_top_pct: 0 }
+      the_faceless_storyteller: { frames_pct: 6, dominant_top_pct: 0 }
+    evidence: [reports/*/advanced_visual_analysis.md]
+
+  - id: resilience
+    label: Resilience (visual expression tag)
+    tier: shared
+    supporting_channels: [whisprs_yt, soulful_lines]
+    contradicting_channels: []
+    confidence: 0.78
+    per_channel:
+      whisprs_yt: { frames_pct: 24, dominant_top_pct: 0 }
+      soulful_lines: { frames_pct: 31, dominant_top_pct: 40 }
+      the_faceless_storyteller: { frames_pct: 7, dominant_top_pct: 0 }
+
+  - id: peaceful_sadness
+    label: Peaceful sadness (visual expression tag)
+    tier: competitor_cluster
+    supporting_channels: [soulful_lines, the_faceless_storyteller]
+    contradicting_channels: [whisprs_yt]
+    confidence: 0.80
+    per_channel:
+      whisprs_yt: { frames_pct: 15, dominant_top_pct: 0 }
+      soulful_lines: { frames_pct: 30, dominant_top_pct: 20 }
+      the_faceless_storyteller: { frames_pct: 30, dominant_top_pct: 43 }
+
+  - id: longing
+    label: Longing (visual expression tag)
+    tier: faceless_weighted
+    supporting_channels: [the_faceless_storyteller]
+    contradicting_channels: []
+    confidence: 0.70
+    per_channel:
+      whisprs_yt: { frames_pct: 9 }
+      soulful_lines: { frames_pct: 0 }
+      the_faceless_storyteller: { frames_pct: 26 }
+
+arc:
+  - id: pain_understanding_acceptance_growth
+    label: Pain → Understanding → Acceptance → Growth
+    tier: probable_niche
+    supporting_channels: [whisprs_yt, soulful_lines, the_faceless_storyteller]
+    contradicting_channels: []
+    confidence: 0.70
+    evidence:
+      - reports/*/master_emotional_bible.md
+      - reports/*/content_dna.md
+    note: Bible synthesis only; not independently measured in narrative_patterns for soulful_lines.
+
+comment_themes:
+  - id: heartbreak
+    label: Heartbreak (comment keyword)
+    tier: unknown_niche
+    supporting_channels: [whisprs_yt]
+    contradicting_channels: [soulful_lines, the_faceless_storyteller]
+    confidence: 0.20
+    metrics: { whisprs_yt_pct: 23 }
+    evidence: [reports/whisprs_yt/audience_psychology.md]
+
+  - id: self_love
+    label: Self-love (comment keyword)
+    tier: unknown_niche
+    supporting_channels: [whisprs_yt]
+    contradicting_channels: [soulful_lines, the_faceless_storyteller]
+    confidence: 0.20
+    metrics: { whisprs_yt_pct: 23 }
+    evidence: [reports/whisprs_yt/audience_psychology.md]
+
+  - id: gratitude
+    label: Gratitude (comment keyword)
+    tier: unknown_niche
+    supporting_channels: [whisprs_yt]
+    contradicting_channels: [soulful_lines, the_faceless_storyteller]
+    confidence: 0.18
+    metrics: { whisprs_yt_pct: 19 }
+    evidence: [reports/whisprs_yt/audience_psychology.md]
+
+  - id: loneliness
+    label: Loneliness (comment keyword)
+    tier: unknown_niche
+    supporting_channels: [whisprs_yt]
+    contradicting_channels: [soulful_lines, the_faceless_storyteller]
+    confidence: 0.18
+    metrics: { whisprs_yt_pct: 17 }
+    evidence: [reports/whisprs_yt/audience_psychology.md]
+
+audio_emotion_proxy:
+  - id: loneliness_keyword_density
+    label: Loneliness emotional keyword density in transcripts
+    tier: faceless_weighted
+    supporting_channels: [the_faceless_storyteller]
+    contradicting_channels: []
+    confidence: 0.55
+    metrics: { the_faceless_storyteller_avg: 1.0 }
+    evidence: [reports/the_faceless_storyteller/content_dna.md]

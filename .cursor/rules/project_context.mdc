@@ -1,0 +1,51 @@
+---
+alwaysApply: true
+---
+# Project Context — Read First
+
+## What this repo IS
+
+A **Universal Content Intelligence Platform** (architecture) with a **SHIPPED** single-channel CLI today.
+
+```
+Core + Niche + Brand = Content
+```
+
+- **Layer 1:** `content_intelligence_core/` (scaffold) — runnable code still in `channel_analyzer/`
+- **Layer 2:** `niches/` — `emotional_healing` is first profile (YAML)
+- **Layer 3:** `brands/` — `whisprs_style` is first brand (YAML)
+
+Entry point unchanged: `main.py` → `channel_analyzer.pipeline`
+
+## Product naming
+
+- **Correct:** Universal Content Intelligence Platform
+- **Wrong:** WhisprsYT Intelligence Platform (Whisprs is a **brand**, not the platform)
+
+## What this repo is NOT (yet)
+
+- Physical migration of `channel_analyzer` into core (see `docs/MIGRATION_PLAN.md`)
+- Profile loader / `--niche` `--brand` CLI flags
+- Multi-channel discovery pipeline (MI scaffold only)
+- Generation, motion analysis, knowledge graph
+
+## Source of truth order
+
+1. `docs/CURRENT_STATE.md`
+2. `docs/ARCHITECTURE_VISION.md` + `docs/MIGRATION_PLAN.md`
+3. `docs/NON_GOALS.md`
+4. Code in `channel_analyzer/`
+5. `niches/` and `brands/` YAML (REFERENCE until loader ships)
+6. Legacy prose: `docs/07–10_*.md`
+
+## Layer 1 rule
+
+Never add anime, healing, horror, finance, humor strings to `content_intelligence_core/` or niche-specific logic in analyzers. Use profiles.
+
+## When refactoring
+
+Follow `docs/MIGRATION_PLAN.md` — compat shims, no breaking `main.py`.
+
+## Token economics
+
+`docs/TOKEN_ECONOMICS.md`, `token_economics.mdc`

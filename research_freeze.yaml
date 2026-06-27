@@ -1,0 +1,13 @@
+# Research freeze — do not expand theory until validation gate clears.
+# See reports/RESEARCH_VALIDATION_AUDIT.md and reports/comments_validation_report.md
+
+research_freeze:
+  new_taxonomies: false
+  new_psychology_layers: false
+  new_mechanisms: false
+  new_frameworks: false
+
+until:
+  - 5_complete_channels
+  - 2_comment_datasets
+  - synthesis_rerun

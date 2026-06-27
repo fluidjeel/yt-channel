@@ -1,0 +1,49 @@
+---
+alwaysApply: true
+---
+# Agent Design Rules
+
+## Terminology
+
+**Today:** The pipeline uses **modules** (Python functions), not autonomous agents.
+
+**Future **PLANNED**:** Independent units with defined inputs/outputs. Until then, do not describe modules as "agents" in user-facing docs without the SHIPPED/PARTIAL tag.
+
+## Communication
+
+Units must communicate through **artifacts** on disk:
+
+- CSV, Markdown, JSON, GraphML, YAML, PNG, MP4
+
+No agent calls another agent directly. The orchestrator (`pipeline.py`) or a future scheduler reads/writes paths.
+
+## Required spec for any new **PLANNED** agent
+
+Document in `docs/05_AgentCatalog.md`:
+
+- Purpose (one sentence)
+- Input artifact paths
+- Output artifact paths
+- Success metric (schema test, not vibes)
+- Model/API if any
+
+## Determinism
+
+Prefer reproducible outputs from fixed inputs. Cache expensive steps under `artifacts/` when implemented.
+
+## market_intelligence agents
+
+Not agents yet — scaffold only. Implement discovery first; do not stub all eight features with mock data.
+
+## Quality council **PLANNED**
+
+Multi-critic scoring before publish is not built. Do not add fake score JSON.
+
+## Cursor vibe coding
+
+When user says "add an agent", clarify:
+
+1. Is this a new **pipeline step** (preferred)?
+2. Or a future LLM wrapper reading reports?
+
+Default to pipeline step with real file outputs.

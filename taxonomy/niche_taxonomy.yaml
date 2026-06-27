@@ -1,0 +1,174 @@
+# Niche Taxonomy v1 — evidence from benchmark cohort only
+# Channels: whisprs_yt, soulful_lines, the_faceless_storyteller
+# Generated: 2026-06-27
+
+version: 1
+reference_channel: whisprs_yt
+cohort:
+  analyzed:
+    - whisprs_yt
+    - soulful_lines
+    - the_faceless_storyteller
+  failed:
+    - whispering_souls
+    - deep_verse
+    - thefallenpoet
+
+product_definition:
+  id: recovery_content_anime_aesthetic
+  label: Recovery content in anime aesthetic (not romance / not hype motivation)
+  supporting_channels: [whisprs_yt, soulful_lines, the_faceless_storyteller]
+  contradicting_channels: []
+  confidence: 0.72
+  evidence:
+    - reports/whisprs_yt/content_dna.md
+    - reports/soulful_lines/content_dna.md
+    - reports/the_faceless_storyteller/content_dna.md
+  note: Framing from bible synthesis; no competitor comment data to confirm audience purchase intent.
+
+traits:
+  confirmed:
+    - id: high_negative_space
+      label: High negative space (~80%+ in top performers)
+      supporting_channels: [whisprs_yt, soulful_lines, the_faceless_storyteller]
+      contradicting_channels: []
+      confidence: 0.95
+      metrics:
+        whisprs_yt: { avg_negative_space_pct: 79.6, high_performer_avg: 81.0 }
+        soulful_lines: { avg_negative_space_pct: 84.8, high_performer_avg: 80.4 }
+        the_faceless_storyteller: { avg_negative_space_pct: 84.4, high_performer_avg: 82.8 }
+      evidence:
+        - reports/*/advanced_visual_analysis.md
+
+    - id: alone_relationship_framing
+      label: Solitary / alone relationship dynamic in top videos
+      supporting_channels: [whisprs_yt, soulful_lines, the_faceless_storyteller]
+      contradicting_channels: []
+      confidence: 0.93
+      metrics:
+        whisprs_yt: { alone_top_video_pct: 100, alone_frame_pct: 99 }
+        soulful_lines: { alone_top_video_pct: 100, alone_frame_pct: 91 }
+        the_faceless_storyteller: { alone_top_video_pct: 100, alone_frame_pct: 100 }
+      evidence:
+        - reports/*/advanced_visual_analysis.md
+
+    - id: anime_adjacent_aesthetic
+      label: Anime-adjacent visual style (style score ~0.47–0.52)
+      supporting_channels: [whisprs_yt, soulful_lines, the_faceless_storyteller]
+      contradicting_channels: []
+      confidence: 0.90
+      metrics:
+        whisprs_yt: { avg_anime_style_score: 0.52 }
+        soulful_lines: { avg_anime_style_score: 0.48 }
+        the_faceless_storyteller: { avg_anime_style_score: 0.47 }
+      evidence:
+        - reports/*/advanced_visual_analysis.md
+
+  probable:
+    - id: tiny_human_large_world
+      label: Tiny human in large world composition
+      supporting_channels: [soulful_lines, the_faceless_storyteller]
+      contradicting_channels: []
+      confidence: 0.82
+      metrics:
+        whisprs_yt: { top_video_dominant_pct: 70, frame_pct: 59 }
+        soulful_lines: { top_video_dominant_pct: 60, frame_pct: 72 }
+        the_faceless_storyteller: { top_video_dominant_pct: 100, frame_pct: 80 }
+      evidence:
+        - reports/*/advanced_visual_analysis.md
+
+    - id: pain_acceptance_growth_arc
+      label: Emotional arc Pain → Understanding → Acceptance → Growth
+      supporting_channels: [whisprs_yt, soulful_lines, the_faceless_storyteller]
+      contradicting_channels: []
+      confidence: 0.70
+      evidence:
+        - reports/*/master_emotional_bible.md
+        - reports/*/content_dna.md
+      note: Stated in all three bibles; narrative_patterns.md only fully supports whisprs_yt and the_faceless_storyteller.
+
+    - id: hook_reflection_insight_resolution
+      label: Four-beat narrative Hook → Reflection → Insight → Resolution
+      supporting_channels: [whisprs_yt, the_faceless_storyteller]
+      contradicting_channels: [soulful_lines]
+      confidence: 0.68
+      metrics:
+        whisprs_yt: { template: "Hook → Reflection → Insight → Resolution" }
+        soulful_lines: { template: "Hook (73% avg section weight; incomplete transcripts)" }
+        the_faceless_storyteller: { template: "Hook → Reflection → Insight → Resolution" }
+      evidence:
+        - reports/*/narrative_patterns.md
+
+  channel_specific:
+    whisprs_yt:
+      - id: dreamer_archetype_dominant
+        label: Dreamer archetype in top performers
+        supporting_channels: [whisprs_yt]
+        contradicting_channels: [soulful_lines, the_faceless_storyteller]
+        confidence: 0.88
+        metrics: { top_video_dominant_pct: 50, frame_pct: 23 }
+      - id: looking_up_gaze_dominant
+        label: Looking-up gaze in top performers
+        supporting_channels: [whisprs_yt]
+        contradicting_channels: [soulful_lines, the_faceless_storyteller]
+        confidence: 0.90
+        metrics: { top_video_dominant_pct: 80, frame_pct: 27 }
+      - id: acceptance_expression_dominant
+        label: Acceptance as dominant visual expression in top performers
+        supporting_channels: [whisprs_yt]
+        contradicting_channels: [soulful_lines, the_faceless_storyteller]
+        confidence: 0.91
+        metrics: { top_video_dominant_pct: 90, frame_pct: 46 }
+
+    soulful_lines:
+      - id: observer_archetype_dominant
+        label: Observer archetype in top performers
+        supporting_channels: [soulful_lines]
+        contradicting_channels: [whisprs_yt]
+        confidence: 0.87
+        metrics: { top_video_dominant_pct: 80, frame_pct: 66 }
+      - id: resilience_expression_lead
+        label: Resilience leads frame-level emotional expression
+        supporting_channels: [soulful_lines]
+        contradicting_channels: [the_faceless_storyteller]
+        confidence: 0.75
+        metrics: { frame_pct: 31 }
+
+    the_faceless_storyteller:
+      - id: observer_archetype_dominant
+        label: Observer archetype in top performers
+        supporting_channels: [the_faceless_storyteller]
+        contradicting_channels: [whisprs_yt]
+        confidence: 0.89
+        metrics: { top_video_dominant_pct: 86, frame_pct: 69 }
+      - id: no_face_gaze_dominant
+        label: No-face gaze in top performers
+        supporting_channels: [the_faceless_storyteller, soulful_lines]
+        contradicting_channels: [whisprs_yt]
+        confidence: 0.86
+        metrics:
+          the_faceless_storyteller: { top_video_dominant_pct: 71, frame_pct: 53 }
+          soulful_lines: { top_video_dominant_pct: 60, frame_pct: 51 }
+      - id: peaceful_sadness_expression_lead
+        label: Peaceful sadness leads frame-level emotional expression
+        supporting_channels: [the_faceless_storyteller]
+        contradicting_channels: [whisprs_yt]
+        confidence: 0.80
+        metrics: { frame_pct: 30, top_performer_expression_pct: 43 }
+
+  unknown:
+    - id: comment_heartbreak_self_love_niche
+      label: Comment themes heartbreak / self-love / loneliness are niche-wide
+      supporting_channels: [whisprs_yt]
+      contradicting_channels: [soulful_lines, the_faceless_storyteller]
+      confidence: 0.15
+      evidence:
+        - reports/whisprs_yt/audience_psychology.md
+      note: Zero comments collected on competitors.
+
+    - id: save_over_share_audience_behavior
+      label: Audience saves more than shares (reference material behavior)
+      supporting_channels: [whisprs_yt]
+      contradicting_channels: []
+      confidence: 0.25
+      metrics: { save_intent_comments: 18, share_intent_comments: 0 }

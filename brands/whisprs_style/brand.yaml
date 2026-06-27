@@ -1,0 +1,71 @@
+# Whisprs Style — Brand DNA
+# Layer 3. Combines with niche: emotional_healing + core intelligence.
+
+id: whisprs_style
+name: Whisprs Style
+version: "1.0"
+status: reference
+niche_id: emotional_healing
+
+voice:
+  style: poetic
+  tone: [gentle, reflective, intimate]
+  person: second_person_optional
+  pace: slow
+  avoid: [hype, preaching, sarcasm, bro_motivation]
+
+narration_identity:
+  delivery: calm_spoken_word
+  pause_weight: high
+  emotional_range: restrained
+  ai_voice_ok: true
+  preferred_voice_traits: [warm, soft, unhurried]
+
+visual_identity:
+  family: anime_lofi
+  rendering: painterly_minimal
+  signature_elements:
+    - film_grain_heavy
+    - teal_orange_grade
+    - negative_space
+    - integrated_handwritten_text
+  character_note: east_asian_inspired_ordinary
+
+pacing:
+  video_tempo: slow
+  scene_duration_sec: [3, 6]
+  hook_delay: minimal  # emotion first, not shock
+  cut_frequency: low
+
+music_identity:
+  genre: ambient
+  layers: [soft_piano, lo_fi, rain, vinyl_texture]
+  volume_vs_voice: underneath
+  avoid: [upbeat_edm, comedy_stings]
+
+motion_identity:
+  budget: low  # 10-20%
+  signature_moves:
+    - slow_push_in
+    - cloud_drift
+    - subtle_breathing
+    - hair_wind
+  avoid: [fast_zoom, action_cuts]
+
+typography_identity:
+  font_family: handwritten_cursive
+  color: off_white
+  shadow: subtle
+  placement: upper_middle_sky
+
+branding_elements:
+  optional:
+    - rose_emoji
+    - minimal_logo_corner
+
+content_formula:
+  summary: Core intelligence + emotional_healing niche + whisprs_style brand
+
+sources:
+  - docs/10_STYLE_BIBLE.md
+  - niches/emotional_healing/

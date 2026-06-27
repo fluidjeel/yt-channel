@@ -1,0 +1,79 @@
+# Emotional Healing — Niche Profile
+# Layer 2 only. Derived from Whisprs-style analysis (REFERENCE).
+# See docs/10_STYLE_BIBLE.md for prose; this file is machine-loadable.
+
+id: emotional_healing
+name: Emotional Healing
+version: "1.0"
+status: reference
+
+description: >
+  Short-form poetic reflection content focused on healing, hope, self-worth,
+  relationships, and quiet growth. Visual language favors introspection
+  over spectacle; emotional intensity stays restrained (dual-emotion pairs).
+
+audience_needs:
+  - feel understood without being lectured
+  - process heartbreak, loneliness, and growth
+  - share relatable quotes with others
+  - calm, safe emotional space
+
+content_themes:
+  primary:
+    - hope
+    - healing
+    - acceptance
+    - self_worth
+    - love
+    - loneliness
+    - growth
+    - resilience
+  secondary:
+    - longing
+    - nostalgia
+    - reflection
+    - gratitude
+    - inner_peace
+    - spirituality
+
+narrative_arcs:
+  - id: pain_to_growth
+    label: Pain to growth
+  - id: heartbreak_to_selfworth
+    label: Heartbreak to self-worth
+  - id: loneliness_to_peace
+    label: Loneliness to peace
+  - id: longing_to_acceptance
+    label: Longing to acceptance
+  - id: exhaustion_to_determination
+    label: Exhaustion to determination
+
+symbolism:
+  moon: distance
+  clouds: possibility
+  waterfall: emotional_overwhelm
+  ocean: reflection
+  tree: endurance
+  window: hope
+  road: journey
+  bridge: transition
+  stairs: growth
+  field: solitude
+  rain: healing
+  sunrise: new_beginning
+  sunset: acceptance
+
+performance_signals:
+  high_retention_patterns:
+    - large_negative_space
+    - dual_emotion_face
+    - single_focal_subject
+    - poetic_hook_first_3_seconds
+  share_triggers:
+    - personal_identification
+    - quote_to_send_to_someone
+
+sources:
+  - docs/07_EmotionalTaxonomy.md
+  - docs/08_VisualTaxonomy.md
+  - docs/10_STYLE_BIBLE.md

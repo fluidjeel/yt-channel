@@ -1,0 +1,42 @@
+# Emotional Healing — Audience Persona Model
+
+id: emotional_healing
+version: "1.0"
+
+primary_persona:
+  id: quiet_seeker
+  label: Quiet Seeker
+  age_range: "18-35"
+  mindset: >
+    Carrying unspoken feelings; scrolls for validation and gentle perspective,
+    not hype or jokes. Often shares quotes with one person who "would get it."
+  pain_points:
+    - heartbreak or ambiguous relationships
+    - loneliness in crowded life
+    - low self-worth after failure
+    - need for hope without toxic positivity
+  desires:
+    - feel seen without exposing vulnerability publicly
+    - small daily emotional reset
+    - language for feelings they cannot articulate
+  language_style:
+    - second_person gentle ("you")
+    - poetic, not clinical
+    - short sentences; pauses matter
+
+secondary_personas:
+  - id: healing_after_breakup
+    label: Post-breakup healer
+  - id: stoic_growth
+    label: Quiet self-improvement
+  - id: spiritual_reflector
+    label: Meaning and purpose seeker
+
+comment_sentiment_targets:
+  positive_indicators:
+    - "needed this today"
+    - "sent this to someone"
+    - "felt seen"
+  avoid_signals:
+    - "just copy paste quotes"
+    - "AI slop"

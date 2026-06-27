@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local/yt-channel/schemas/niche/niche_profile.schema.json",
+  "title": "NicheProfile",
+  "description": "Layer 2 niche profile — required files per niche folder",
+  "type": "object",
+  "required": ["id", "files"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+    "files": {
+      "type": "object",
+      "required": [
+        "taxonomy",
+        "persona",
+        "emotion_model",
+        "visual_model",
+        "narrative_model",
+        "quality_rules"
+      ],
+      "properties": {
+        "taxonomy": { "const": "taxonomy.yaml" },
+        "persona": { "const": "persona.yaml" },
+        "emotion_model": { "const": "emotion_model.yaml" },
+        "visual_model": { "const": "visual_model.yaml" },
+        "narrative_model": { "const": "narrative_model.yaml" },
+        "quality_rules": { "const": "quality_rules.yaml" }
+      }
+    }
+  }
+}

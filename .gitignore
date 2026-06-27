@@ -1,0 +1,40 @@
+# Byte-compiled / cache
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Architecture outputs
+data/
+reports/
+artifacts/
+knowledge_graph/
+dashboard/
+
+# Legacy paths (pre-architecture alignment)
+output/
+downloads/
+top_frames/
+style_reference/
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Secrets / keys — never commit
+.env
+.env.*
+ssh-key*.key
+ssh-key*.key.pub
+oracle_key.pem
+*.pem
+!requirements.txt

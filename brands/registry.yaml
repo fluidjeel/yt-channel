@@ -1,0 +1,32 @@
+# Brand registry
+
+version: "1.0"
+
+brands:
+  whisprs_style:
+    path: whisprs_style
+    niche_id: emotional_healing
+    status: reference
+    description: Poetic lo-fi emotional Shorts — first reference brand
+
+  dark_lantern:
+    path: dark_lantern
+    niche_id: horror
+    status: placeholder
+
+  neural_brief:
+    path: neural_brief
+    niche_id: tech_reviews
+    status: placeholder
+
+  silent_stoic:
+    path: silent_stoic
+    niche_id: philosophy
+    status: placeholder
+
+  byte_review:
+    path: byte_review
+    niche_id: tech_reviews
+    status: placeholder
+
+default_brand: whisprs_style

@@ -1,0 +1,47 @@
+---
+alwaysApply: true
+---
+# Architecture Rules
+
+## Three layers
+
+1. **content_intelligence_core/** — niche-agnostic intelligence (never mention anime/healing/horror in core module code)
+2. **niches/** — taxonomy, emotion, visual, narrative, quality YAML per niche
+3. **brands/** — brand.yaml voice/visual/pacing differentiation
+
+Formula: **Core + Niche + Brand = Content**
+
+Full vision: `docs/ARCHITECTURE_VISION.md`. Migration: `docs/MIGRATION_PLAN.md`.
+
+## Current pattern **SHIPPED**
+
+```
+main.py → channel_analyzer.pipeline (steps 1–11)
+```
+
+`content_intelligence_core/` is scaffold until M3 migration. Do not break CLI.
+
+## Layer rules
+
+| Layer | Path | Rule |
+|-------|------|------|
+| CLI | `main.py` | Parse args, load Config, call pipeline |
+| Core (today) | `channel_analyzer/` | Steps produce niche-neutral artifacts where possible |
+| Profiles | `niches/`, `brands/` | All specialization in YAML |
+| MI | `market_intelligence/` | Future core discovery; scaffold only |
+
+## Output paths
+
+CSV → `data/` · Markdown → `reports/` · Media → `artifacts/`
+
+## Adding features
+
+- New analyzer → core (niche-neutral output)
+- New theme/emotion rules → `niches/{id}/`
+- New channel look → `brands/{id}/brand.yaml`
+- Do not hardcode Whisprs/healing in Python
+
+## Forbidden without M3 plan
+
+- Big-bang move of `channel_analyzer` without compat re-exports
+- Deleting `channel_analyzer` before migration complete

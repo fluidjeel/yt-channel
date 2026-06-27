@@ -1,0 +1,47 @@
+---
+alwaysApply: true
+---
+# Token Economics
+
+Full policy: `docs/TOKEN_ECONOMICS.md`
+
+## Cursor vs API keys
+
+- **Cursor included models:** coding, refactors, tests, architecture, parsers, provider plumbing only.
+- **User API keys (via Python scripts):** bulk analysis, synthesis, bibles, comment clustering — NOT Cursor chat at scale.
+
+Do not suggest pasting hundreds of reports or thousands of comments into Cursor for analysis.
+
+## Model routing (when implementing LLM layer)
+
+| Workload | Provider |
+|----------|----------|
+| Bulk classification, tagging, clustering | DeepSeek (or local) |
+| Final synthesis (bibles, personas, cross-channel) | Claude — **summary input only** |
+| Prompt engineering, plans, taxonomies | GPT |
+| Trend / competitor research | Grok — sparingly |
+| Pipeline steps 1–11 today | Local only — no API |
+
+## Forbidden
+
+- Premium LLM (Claude/GPT-4 class) on large-scale classification
+- Claude reading full raw comment dumps or all reports without DeepSeek compression first
+- Hardcoded provider calls in step modules — use `channel_analyzer/llm/` abstraction + `config.yaml` `llm:`
+- Uncached repeat synthesis of the same artifacts
+
+## Required pattern
+
+```
+Raw artifacts → DeepSeek extraction → structured JSON → Claude synthesis → cached artifact
+```
+
+## Every new LLM call must
+
+1. Estimate tokens and rough cost
+2. Cache under `artifacts/llm_cache/`
+3. Log provider + model in output metadata
+4. Update `docs/CURRENT_STATE.md` when wired
+
+## Config
+
+Use `config.yaml` → `llm:` block (PLANNED until implemented). See `docs/TOKEN_ECONOMICS.md`.

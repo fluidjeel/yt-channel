@@ -1,0 +1,129 @@
+# Visual Taxonomy v1 — from advanced_visual_analysis.md per channel
+
+version: 1
+
+composition:
+  - id: tiny_human_large_world
+    label: Tiny human in large world
+    tier: probable_niche
+    supporting_channels: [whisprs_yt, soulful_lines, the_faceless_storyteller]
+    contradicting_channels: []
+    confidence: 0.82
+    per_channel:
+      whisprs_yt: { dominant_top_pct: 70, frames_pct: 59 }
+      soulful_lines: { dominant_top_pct: 60, frames_pct: 72 }
+      the_faceless_storyteller: { dominant_top_pct: 100, frames_pct: 80 }
+
+  - id: edge_subject
+    label: Edge subject placement
+    tier: channel_variable
+    supporting_channels: [whisprs_yt, soulful_lines]
+    contradicting_channels: []
+    confidence: 0.55
+    per_channel:
+      whisprs_yt: { frames_pct: 27 }
+      soulful_lines: { frames_pct: 21 }
+      the_faceless_storyteller: { frames_pct: 14 }
+
+  - id: high_negative_space
+    label: Negative space ≥80% (high performers)
+    tier: confirmed_niche
+    supporting_channels: [whisprs_yt, soulful_lines, the_faceless_storyteller]
+    contradicting_channels: []
+    confidence: 0.95
+    per_channel:
+      whisprs_yt: { avg_pct: 79.6, high_performer_pct: 81.0 }
+      soulful_lines: { avg_pct: 84.8, high_performer_pct: 80.4 }
+      the_faceless_storyteller: { avg_pct: 84.4, high_performer_pct: 82.8 }
+
+archetype:
+  - id: observer
+    label: Observer character
+    tier: competitor_cluster
+    supporting_channels: [soulful_lines, the_faceless_storyteller]
+    contradicting_channels: [whisprs_yt]
+    confidence: 0.88
+    per_channel:
+      whisprs_yt: { frames_pct: 8, dominant_top_pct: 0 }
+      soulful_lines: { frames_pct: 66, dominant_top_pct: 80 }
+      the_faceless_storyteller: { frames_pct: 69, dominant_top_pct: 86 }
+
+  - id: dreamer
+    label: Dreamer character
+    tier: whisprs_specific
+    supporting_channels: [whisprs_yt]
+    contradicting_channels: [soulful_lines, the_faceless_storyteller]
+    confidence: 0.88
+    per_channel:
+      whisprs_yt: { frames_pct: 23, dominant_top_pct: 50 }
+      soulful_lines: { frames_pct: 2, dominant_top_pct: 0 }
+      the_faceless_storyteller: { frames_pct: 0, dominant_top_pct: 0 }
+
+  - id: solitary_male
+    label: Solitary male
+    tier: whisprs_weighted
+    supporting_channels: [whisprs_yt]
+    contradicting_channels: []
+    confidence: 0.60
+    per_channel:
+      whisprs_yt: { frames_pct: 37 }
+      soulful_lines: { frames_pct: 1 }
+      the_faceless_storyteller: { frames_pct: 1 }
+
+gaze:
+  - id: looking_up
+    label: Looking up
+    tier: whisprs_specific
+    supporting_channels: [whisprs_yt]
+    contradicting_channels: [soulful_lines, the_faceless_storyteller]
+    confidence: 0.90
+    per_channel:
+      whisprs_yt: { frames_pct: 27, dominant_top_pct: 80 }
+      soulful_lines: { frames_pct: 15, dominant_top_pct: 0 }
+      the_faceless_storyteller: { frames_pct: 1, dominant_top_pct: 0 }
+
+  - id: no_face
+    label: No face / obscured face
+    tier: competitor_cluster
+    supporting_channels: [soulful_lines, the_faceless_storyteller]
+    contradicting_channels: [whisprs_yt]
+    confidence: 0.85
+    per_channel:
+      whisprs_yt: { frames_pct: 32, dominant_top_pct: 0 }
+      soulful_lines: { frames_pct: 51, dominant_top_pct: 60 }
+      the_faceless_storyteller: { frames_pct: 53, dominant_top_pct: 71 }
+
+  - id: looking_down
+    label: Looking down
+    tier: faceless_weighted
+    supporting_channels: [the_faceless_storyteller]
+    contradicting_channels: [whisprs_yt]
+    confidence: 0.72
+    per_channel:
+      whisprs_yt: { frames_pct: 13 }
+      soulful_lines: { frames_pct: 7 }
+      the_faceless_storyteller: { frames_pct: 22 }
+
+relationship:
+  - id: alone
+    label: Alone (no dyad)
+    tier: confirmed_niche
+    supporting_channels: [whisprs_yt, soulful_lines, the_faceless_storyteller]
+    contradicting_channels: []
+    confidence: 0.93
+    per_channel:
+      whisprs_yt: { dominant_top_pct: 100, frames_pct: 99 }
+      soulful_lines: { dominant_top_pct: 100, frames_pct: 91 }
+      the_faceless_storyteller: { dominant_top_pct: 100, frames_pct: 100 }
+
+style:
+  - id: anime_aesthetic
+    label: Anime style score
+    tier: confirmed_niche
+    supporting_channels: [whisprs_yt, soulful_lines, the_faceless_storyteller]
+    contradicting_channels: []
+    confidence: 0.90
+    per_channel:
+      whisprs_yt: 0.52
+      soulful_lines: 0.48
+      the_faceless_storyteller: 0.47

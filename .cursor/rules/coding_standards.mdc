@@ -1,0 +1,42 @@
+---
+alwaysApply: true
+---
+# Coding Standards
+
+## Python
+
+- 3.10+ features OK; match existing style in `channel_analyzer/`
+- Type hints on public functions
+- `from __future__ import annotations` where already used
+- Logging via `logging.getLogger(__name__)` — not bare print in library code
+
+## Structure
+
+- Keep step modules focused; extract to `utils.py` only if reused twice+
+- Config access via `Config.from_yaml()` / `MarketConfig.from_yaml()` — no magic paths
+- Use `pathlib.Path` for file paths
+
+## Dependencies
+
+- Add new deps to both `requirements.txt` and `pyproject.toml` (they currently diverge on networkx/pytest)
+- System: ffmpeg required; prefer `get_ffmpeg_path()` helper
+
+## Error handling
+
+- Fail loudly in CLI with message; `--verbose` re-raises
+- Do not swallow errors in analyzers without logging
+
+## Docs
+
+- Update `docs/CURRENT_STATE.md` when behavior changes
+- Tag **SHIPPED** / **PLANNED** in new doc sections
+
+## Git / secrets
+
+- Never commit API keys, `.env`, or downloaded videos
+- `data/`, `reports/`, `artifacts/` are gitignored runtime outputs
+
+## Tests
+
+- Place under `tests/` mirroring package name
+- Prioritize: performance ranking math, CSV column stability, config loading

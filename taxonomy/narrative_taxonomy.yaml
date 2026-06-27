@@ -1,0 +1,87 @@
+# Narrative Taxonomy v1 — from narrative_patterns.md + music_profile.md
+
+version: 1
+
+structure:
+  - id: hook_reflection_insight_resolution
+    label: Hook → Reflection → Insight → Resolution
+    tier: probable_niche
+    supporting_channels: [whisprs_yt, the_faceless_storyteller]
+    contradicting_channels: [soulful_lines]
+    confidence: 0.68
+    per_channel:
+      whisprs_yt:
+        template: "Hook → Reflection → Insight → Resolution"
+        avg_words: { hook: 10, reflection: 12, insight: 19, resolution: 10 }
+      soulful_lines:
+        template: "Hook (incomplete — 73% avg section weight)"
+        avg_words: { hook: 13, reflection: 3, insight: 4, resolution: 9 }
+        note: Whisper/transcript quality limits section detection
+      the_faceless_storyteller:
+        template: "Hook → Reflection → Insight → Resolution"
+        avg_words: { hook: 22, reflection: 41, insight: 45, resolution: 29 }
+    evidence: [reports/*/narrative_patterns.md]
+
+  - id: hook_only_shortform
+    label: Hook-dominant short (single-beat)
+    tier: soulful_lines_specific
+    supporting_channels: [soulful_lines]
+    contradicting_channels: [whisprs_yt, the_faceless_storyteller]
+    confidence: 0.65
+    note: May reflect audio/transcript failure rather than true format
+    evidence: [reports/soulful_lines/narrative_patterns.md]
+
+pacing:
+  - id: short_hook_whisprs
+    label: ~10-word hook open
+    tier: whisprs_specific
+    supporting_channels: [whisprs_yt]
+    contradicting_channels: [the_faceless_storyteller]
+    confidence: 0.85
+    metrics: { whisprs_yt_avg_hook_words: 10, faceless_avg_hook_words: 22 }
+
+  - id: longform_hook_faceless
+    label: ~22-word hook open
+    tier: faceless_specific
+    supporting_channels: [the_faceless_storyteller]
+    contradicting_channels: [whisprs_yt]
+    confidence: 0.85
+    metrics: { faceless_avg_hook_words: 22, whisprs_avg_hook_words: 10 }
+
+audio:
+  - id: upbeat_bpm_background
+    label: Upbeat background music (~120–130 BPM average)
+    tier: probable_niche
+    supporting_channels: [whisprs_yt, soulful_lines, the_faceless_storyteller]
+    contradicting_channels: []
+    confidence: 0.75
+    per_channel:
+      soulful_lines: { avg_bpm: 127 }
+      the_faceless_storyteller: { avg_bpm: 123 }
+    note: whisprs_yt music_profile.md exists; avg BPM not re-quoted here — verify before generation use
+    evidence:
+      - reports/soulful_lines/music_profile.md
+      - reports/the_faceless_storyteller/music_profile.md
+
+content_framing:
+  - id: recovery_not_romance
+    label: Recovery / self-worth framing (not revenge, not hype motivation)
+    tier: probable_niche
+    supporting_channels: [whisprs_yt, soulful_lines, the_faceless_storyteller]
+    contradicting_channels: []
+    confidence: 0.72
+    evidence:
+      - reports/*/content_dna.md
+      - reports/*/master_emotional_bible.md
+    note: Synthesis-level framing; Faceless hooks include horror-story openings per narrative_patterns.md — format hybrid.
+
+  - id: horror_story_hook_faceless
+    label: Horror / creepypasta-style hook openings
+    tier: faceless_specific
+    supporting_channels: [the_faceless_storyteller]
+    contradicting_channels: [whisprs_yt, soulful_lines]
+    confidence: 0.80
+    evidence: [reports/the_faceless_storyteller/narrative_patterns.md]
+    examples:
+      - "Suggestion, if you hate ghost stories, but love a good scare..."
+      - "I will never look at my neighbors the same way after learning this chilling tale."

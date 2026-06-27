@@ -1,0 +1,33 @@
+# Niche registry — maps IDs to profile paths
+
+version: "1.0"
+
+niches:
+  emotional_healing:
+    path: emotional_healing
+    status: reference
+    description: Poetic emotional reflection Shorts; healing, hope, self-worth themes
+
+  # Placeholders — structure only, not populated
+  horror:
+    path: horror
+    status: placeholder
+    description: Suspense, fear, mystery-to-reveal arcs
+
+  humor:
+    path: humor
+    status: placeholder
+
+  tech_reviews:
+    path: tech_reviews
+    status: placeholder
+
+  finance:
+    path: finance
+    status: placeholder
+
+  philosophy:
+    path: philosophy
+    status: placeholder
+
+default_niche: emotional_healing

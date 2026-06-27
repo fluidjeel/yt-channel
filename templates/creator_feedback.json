@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CreatorFeedback",
+  "description": "Structured creator validation feedback for MVP channel intelligence reports",
+  "type": "object",
+  "required": [
+    "channel_slug",
+    "submitted_at",
+    "accuracy",
+    "usefulness",
+    "decision_it_would_help_with"
+  ],
+  "properties": {
+    "channel_slug": {
+      "type": "string",
+      "description": "Benchmark slug (e.g. whisprs_yt)"
+    },
+    "channel_url": {
+      "type": "string",
+      "description": "Original YouTube channel URL"
+    },
+    "report_path": {
+      "type": "string",
+      "description": "Path to channel_intelligence_report.md reviewed"
+    },
+    "submitted_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO-8601 timestamp"
+    },
+    "reviewer_role": {
+      "type": "string",
+      "enum": ["creator", "operator", "investor", "other"],
+      "default": "creator"
+    },
+    "accuracy": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 5,
+      "description": "1=mostly wrong, 5=matches my channel"
+    },
+    "usefulness": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 5,
+      "description": "1=not actionable, 5=would change content decisions"
+    },
+    "surprises": {
+      "type": "string",
+      "description": "What was unexpected, wrong, or missing?"
+    },
+    "willingness_to_pay": {
+      "type": "string",
+      "enum": ["no", "maybe", "yes_under_50", "yes_50_200", "yes_over_200"],
+      "description": "Would you pay for this intelligence on a recurring basis?"
+    },
+    "decision_it_would_help_with": {
+      "type": "string",
+      "description": "Specific content or brand decision this report would inform"
+    },
+    "most_valuable_section": {
+      "type": "string",
+      "enum": [
+        "audience_outcome_profile",
+        "brand_identity_profile",
+        "content_opportunities",
+        "evidence_confidence",
+        "top_performing_patterns",
+        "recommended_experiments",
+        "unsure"
+      ]
+    },
+    "least_valuable_section": {
+      "type": "string",
+      "enum": [
+        "audience_outcome_profile",
+        "brand_identity_profile",
+        "content_opportunities",
+        "evidence_confidence",
+        "top_performing_patterns",
+        "recommended_experiments",
+        "unsure"
+      ]
+    },
+    "freeform_notes": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

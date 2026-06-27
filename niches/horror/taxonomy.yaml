@@ -1,0 +1,11 @@
+# Horror — Placeholder niche profile
+# Demonstrates same schema as emotional_healing; not populated for production.
+
+id: horror
+name: Horror
+version: "0.1"
+status: placeholder
+
+description: Faceless horror Shorts — suspense, isolation, mystery-to-reveal.
+
+# See niches/emotional_healing/ for full file set when implementing.

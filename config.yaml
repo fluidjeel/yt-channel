@@ -1,0 +1,114 @@
+# Channel Intelligence Analyzer configuration
+# Architecture: data/ (CSV), reports/ (Markdown), artifacts/ (downloads, caches, assets)
+
+data_dir: data
+reports_dir: reports
+artifacts_dir: artifacts
+
+# Performance ranking weights (must sum to 1.0)
+ranking_weights:
+  total_views: 0.25
+  views_per_day: 0.35
+  engagement: 0.25
+  recency: 0.15
+
+# Analysis limits
+max_videos_discover: null   # null = all Shorts; set e.g. 50 for faster runs
+top_n_download: 50
+top_n_report: 20
+representative_frames: 100
+
+# Whisper model: tiny, base, small, medium, large
+whisper_model: base
+
+# Visual analysis
+frame_interval_seconds: 1.0
+scene_change_threshold: 30.0
+
+# Advanced visual analysis (character, gaze, emotion, composition, symbolism)
+advanced_visual:
+  frame_interval_seconds: 1.5
+  max_frames_per_video: 10
+  clip_model: clip-ViT-B-32
+  symbolism_threshold: 0.12
+  llm_synthesis: false
+  llm_provider: anthropic
+
+# Comment intelligence (audience psychology from YouTube comments)
+comment_intelligence:
+  max_comments_per_video: 500
+  min_comment_length: 8
+  n_clusters: 12
+  embedding_model: all-MiniLM-L6-v2
+  llm_synthesis: false
+  llm_provider: anthropic
+
+# Bible synthesis (Claude master bibles from analyzer reports)
+bible_synthesis:
+  provider: anthropic
+  force_refresh: false
+emotion_dimensions:
+  - hope
+  - loneliness
+  - love
+  - healing
+  - growth
+  - spirituality
+  - self-worth
+  - acceptance
+
+# Market Intelligence (channel discovery & competitive analysis)
+market_intelligence:
+  data_dir: data
+  reports_dir: reports
+  knowledge_graph_dir: knowledge_graph
+  dashboard_dir: dashboard
+  checkpoint_dir: data/.checkpoints
+  min_candidate_channels: 100
+  seed_video_sample: 20
+  candidate_video_sample: 10
+  top_similar_for_analysis: 10
+  embedding_model: all-MiniLM-L6-v2
+  search_results_per_query: 25
+  max_search_queries: 15
+  similarity_weights:
+    titles: 0.25
+    descriptions: 0.20
+    transcripts: 0.25
+    emotional: 0.15
+    visual: 0.15
+  category_thresholds:
+    direct_competitor_similarity: 0.72
+    adjacent_competitor_similarity: 0.50
+    emerging_max_subscribers: 100000
+    outlier_views_per_video: 500000
+  opportunity_themes:
+    - healing
+    - self-worth
+    - loneliness
+    - purpose
+    - relationships
+    - spirituality
+    - growth
+    - hope
+
+# LLM provider routing — PLANNED. See docs/TOKEN_ECONOMICS.md
+
+# Platform profile selection — PLANNED (M1). Profiles exist as YAML today.
+platform:
+  active_niche: emotional_healing
+  active_brand: whisprs_style
+
+llm:
+  analysis_provider: anthropic       # final synthesis: bibles, personas, cross-channel
+  classification_provider: deepseek  # bulk: comment clustering, emotion tags, themes
+  generation_provider: openai        # prompt packs, taxonomies, agent plans
+  research_provider: grok            # trends, competitors — use sparingly
+  cache_dir: artifacts/llm_cache
+  require_cost_estimate: true        # log tokens + rough cost before each call
+  # Optional model overrides per provider (defaults TBD when implemented)
+  # models:
+  #   anthropic: claude-sonnet-4-20250514
+  #   openai: gpt-4o
+  #   deepseek: deepseek-chat
+  #   grok: grok-2

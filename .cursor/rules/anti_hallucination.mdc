@@ -1,0 +1,53 @@
+---
+alwaysApply: true
+---
+# Anti-Hallucination Rules
+
+## Never claim as implemented
+
+Before saying "the system can X", verify in code or `docs/CURRENT_STATE.md`.
+
+Banned phrases unless **SHIPPED**:
+
+- "The agent swarm will…"
+- "The knowledge graph shows…"
+- "Motion analysis detected…"
+- "The dashboard displays…"
+- "Claude analyzes frames directly…"
+- "Comments are scraped…"
+
+## Status language
+
+Use explicit tags in docs and PR descriptions:
+
+- **SHIPPED** — runnable now
+- **PARTIAL** — incomplete
+- **SCaffold** — types/helpers only
+- **PLANNED** — design only
+- **REFERENCE** — human/LLM knowledge, not code
+
+## No fake modules
+
+Do not create files that return hardcoded "analysis" to simulate unfinished agents.
+
+Prefer: `raise NotImplementedError` or README stating **SCaffold**.
+
+## No scope creep in PRs
+
+A bugfix in `visual_analysis.py` must not add generation APIs.
+
+## README / doc accuracy
+
+If README disagrees with code (e.g. `python -m channel_analyzer.discovery`), fix README or implement — do not leave lying docs.
+
+## LLM API usage
+
+`.cursor/rules/llm_usage.mdc` describes **future** routing. The core pipeline does **not** call OpenAI/Anthropic/DeepSeek/Grok today.
+
+## market_intelligence
+
+Files in `market_intelligence/` do **not** constitute a working pipeline until `main.py` exposes them and `CURRENT_STATE.md` is updated.
+
+## Reference vs implementation
+
+`10_STYLE_BIBLE.md` and taxonomies describe **target niche aesthetics** — not current OpenCV capabilities. Say "REFERENCE" when citing them as analyzer output.

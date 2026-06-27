@@ -1,0 +1,35 @@
+---
+alwaysApply: true
+---
+# LLM Usage Rules
+
+> **Important:** Cloud LLMs are **NOT integrated** in the core pipeline today (Whisper and sentence-transformers run locally).  
+> **Token economics:** Read `docs/TOKEN_ECONOMICS.md` and `token_economics.mdc` before any LLM work.
+
+## Cursor vs your APIs
+
+- **Cursor:** write code, tests, provider abstraction — not bulk channel analysis in chat.
+- **Your API keys:** run scripts that classify/synthesize at scale.
+
+## Model routing (when implemented)
+
+| Role | Provider |
+|------|----------|
+| Bulk classification, tagging, clustering | **DeepSeek** (or local) |
+| Final synthesis (bibles, personas) | **Claude** — compressed JSON in only |
+| Prompt engineering, plans, taxonomies | **GPT** |
+| Trend / competitor research | **Grok** — sparingly |
+
+## Pipeline pattern
+
+```
+Raw reports → DeepSeek extraction → structured JSON → Claude synthesis → cache
+```
+
+Never send raw video frames to LLMs. Preprocess first.
+
+Store all LLM outputs as versioned artifacts under `artifacts/llm_cache/`.
+
+Cache all expensive generations. Estimate tokens + cost before each call.
+
+Config: `config.yaml` → `llm:` block. Code: `channel_analyzer/llm/` (**PLANNED**).

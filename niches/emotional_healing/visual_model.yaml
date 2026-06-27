@@ -1,0 +1,89 @@
+# Emotional Healing — Visual Model
+
+id: emotional_healing
+version: "1.0"
+
+visual_language:
+  - negative_space
+  - dreamer
+  - looking_up
+  - looking_away
+  - window_observer
+  - tiny_human_vast_world
+  - memory_like_texture
+  - soft_atmosphere
+
+character_archetypes:
+  - quiet_thinker
+  - hopeful_dreamer
+  - wounded_soul
+  - traveler
+  - ordinary_girl
+  - elder_sage
+
+environments:
+  - ocean
+  - field
+  - forest
+  - rooftop
+  - window
+  - waterfall
+  - moonlit_sky
+  - cloudscape
+  - quiet_street
+
+composition_templates:
+  - id: tiny_human_vast_sky
+    subject_ratio: [0.15, 0.25]
+    environment_ratio: [0.75, 0.85]
+  - id: portrait
+    subject_ratio: [0.50, 0.70]
+  - id: window_observer
+  - id: journey
+  - id: visual_metaphor
+
+color_palettes:
+  - id: reflection
+    colors: [teal, orange]
+    mood: [wisdom, healing, acceptance]
+  - id: longing
+    colors: [navy, amber]
+  - id: spiritual
+    colors: [teal, white]
+  - id: connection
+    colors: [warm_skin, muted_teal]
+  - id: dream
+    colors: [pink_clouds, cyan_sky]
+
+lighting:
+  preferred: [sunset, window_light, overcast, moonlight, golden_hour]
+  avoid: [harsh_spotlight, high_contrast_drama]
+
+texture_stack:
+  - paper_texture
+  - film_grain
+  - dust_particles
+  - atmospheric_haze
+  - soft_vignette
+
+rendering:
+  style: painterly_anime_minimal
+  detail_budget:
+    texture: high
+    face: medium
+    hair: medium_high
+    clothing: low
+    sky: low
+
+canvas:
+  aspect_ratio: "9:16"
+  resolution: [1080, 1920]
+
+typography:
+  style: handwritten_cursive
+  color: off_white
+  placement: upper_middle_negative_space
+
+motion_defaults:
+  intensity: low  # 10-20% motion budget
+  preferred: [slow_push_in, cloud_drift, subtle_breathing, particle_float]

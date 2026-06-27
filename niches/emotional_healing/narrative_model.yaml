@@ -1,0 +1,63 @@
+# Emotional Healing — Narrative Model
+
+id: emotional_healing
+version: "1.0"
+
+structure:
+  default_arc:
+    - hook          # emotional question or observation (first 3s)
+    - reflection    # expand feeling, universalize
+    - insight       # reframe or gentle lesson
+    - resolution    # hope, acceptance, or open peace
+
+hook_patterns:
+  - rhetorical_question
+  - "you ever notice..."
+  - quiet_confession
+  - contrast_then_feeling
+
+pacing:
+  words_per_minute: [80, 120]
+  pause_frequency: high
+  sentence_length: short_to_medium
+
+voice_narrative_style:
+  - poetic
+  - reflective
+  - second_person_gentle
+  - never preachy
+  - never hype
+
+quote_integration:
+  placement: visual_center_upper
+  tone: personal_journal
+  avoid: generic_motivation_cliches
+
+audio_narrative_layer:
+  narration: primary
+  music: ambient_underneath
+  ambient: [rain, wind, vinyl, soft_piano]
+  sync_rule: motion_follows_pause_not_beats
+
+virality_structure:
+  goal: emotional_resonance_per_second
+  steps:
+    - stop_scroll
+    - feel_personal
+    - read_quote
+    - relate_to_life
+    - share_with_someone
+
+narrative_arcs:
+  - id: pain_to_growth
+    beats: [acknowledge_pain, sit_with_it, small_hope, forward_step]
+  - id: heartbreak_to_selfworth
+    beats: [missing_them, reclaim_self, love_without_need]
+  - id: loneliness_to_peace
+    beats: [alone_moment, not_abandoned, horizon_or_sky]
+
+forbidden:
+  - toxic_positivity
+  - rage_bait
+  - clickbait_shock
+  - laugh_track_energy

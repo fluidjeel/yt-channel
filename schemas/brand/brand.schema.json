@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local/yt-channel/schemas/brand/brand.schema.json",
+  "title": "BrandDNA",
+  "description": "Layer 3 brand identity — brand.yaml",
+  "type": "object",
+  "required": ["id", "niche_id", "voice", "visual_identity", "pacing", "music_identity"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+    "niche_id": { "type": "string" },
+    "name": { "type": "string" },
+    "version": { "type": "string" },
+    "status": { "enum": ["reference", "active", "placeholder", "deprecated"] },
+    "voice": {
+      "type": "object",
+      "required": ["style"],
+      "properties": {
+        "style": { "type": "string" },
+        "tone": { "type": "array", "items": { "type": "string" } },
+        "pace": { "enum": ["slow", "medium", "fast"] }
+      }
+    },
+    "narration_identity": { "type": "object" },
+    "visual_identity": {
+      "type": "object",
+      "required": ["family"],
+      "properties": {
+        "family": { "type": "string" },
+        "rendering": { "type": "string" },
+        "signature_elements": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "pacing": {
+      "type": "object",
+      "properties": {
+        "video_tempo": { "enum": ["slow", "medium", "fast"] },
+        "cut_frequency": { "enum": ["low", "medium", "high"] }
+      }
+    },
+    "music_identity": {
+      "type": "object",
+      "required": ["genre"],
+      "properties": {
+        "genre": { "type": "string" },
+        "layers": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "motion_identity": { "type": "object" },
+    "typography_identity": { "type": "object" }
+  }
+}

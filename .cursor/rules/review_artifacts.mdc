@@ -1,0 +1,40 @@
+---
+alwaysApply: true
+---
+# Review Artifacts — External Critique
+
+Every **major feature** must produce a review document for human/ChatGPT evaluation:
+
+```
+reports/CHATGPT_REVIEW_<FEATURE>.md
+```
+
+## Requirements
+
+- **Maximum 1500 words** (2000 for PROJECT_STATE.md only)
+- **No code**, stack traces, or implementation details unless critical
+- Optimize for **human decision-making**, not developer debugging
+
+## Required sections
+
+1. Objective
+2. Implementation Summary (1-2 sentences max)
+3. Key Findings
+4. Metrics
+5. Surprising Findings
+6. Open Questions
+7. Recommended Next Actions
+
+Cross-channel reviews also include:
+- Executive Summary
+- Top 20 Findings
+- Contradictions
+- What changed vs reference channel
+
+## How to generate
+
+Use `channel_analyzer.review_artifact.write_review_artifact()` or feature-specific synthesizer that calls it.
+
+## Purpose
+
+Prevent building 20,000 lines of code without knowing if insights are real. Paste review artifacts into ChatGPT/Claude for external critique before next feature.

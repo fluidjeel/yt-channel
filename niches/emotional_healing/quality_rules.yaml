@@ -1,0 +1,61 @@
+# Emotional Healing — Quality Rules
+
+id: emotional_healing
+version: "1.0"
+
+evaluation_gates:
+  min_style_match: 0.75
+  min_emotional_consistency: 0.80
+  min_niche_fit: 0.80
+
+visual_checks:
+  required:
+    - single_focal_subject
+    - negative_space_present
+    - soft_lighting
+    - restrained_emotion_intensity
+  forbidden:
+    - crowded_scene
+    - neon_anime_hair
+    - luxury_fashion_focus
+    - pure_white_text_on_busy_detail
+    - harsh_shadows
+
+emotional_checks:
+  required:
+    - dual_emotion_pair_present
+    - intensity_in_target_range
+  forbidden:
+    - emotion_at_9_or_10
+    - desperate_love_tone
+    - devastation_without_hope
+
+narrative_checks:
+  required:
+    - hook_under_5_seconds_equivalent
+    - hope_or_acceptance_in_resolution
+  forbidden:
+    - copied_quote_without_transformation
+    - generic_bro_motivation
+
+audio_checks:
+  required:
+    - calm_narration_pace
+    - music_not_overpowering_voice
+  preferred:
+    - ambient_layer_present
+
+motion_checks:
+  required:
+    - motion_budget_under_20_percent
+  forbidden:
+    - frantic_cuts
+    - action_anime_motion
+
+final_test_question: >
+  Does this feel like a person quietly carrying both pain and hope at the same time?
+
+publish_block_if:
+  - style_match_below_min
+  - single_pure_extreme_emotion
+  - reads_as_generic_ai_slideshow

@@ -1,0 +1,44 @@
+---
+description: Validation gate — no new analyzers until 5 channels have full bibles
+globs:
+alwaysApply: true
+---
+
+# Validation Gate (Project Rule)
+
+## Hard constraint
+
+**Do not build new analyzers** until all of the following exist for **5 distinct benchmark channels** (excluding duplicate imports of the same channel):
+
+| Artifact | Path pattern |
+| --- | --- |
+| `content_dna.md` | `reports/{slug}/content_dna.md` or root `reports/content_dna.md` for reference only |
+| `audience_persona.md` | `reports/{slug}/audience_persona.md` |
+| `master_emotional_bible.md` | `reports/{slug}/master_emotional_bible.md` |
+
+Count a channel as **complete** only when all three files exist and were produced by running the full pipeline (`main.py` + `bible_synthesizer`) on that channel — not placeholder or copied stubs.
+
+## Allowed work before gate clears
+
+- Bug fixes to existing analyzers and collectors
+- **Competitor Acquisition Engine** — discovery, scoring, benchmark YAML updates
+- Running existing pipeline on new benchmark channels (`benchmark_program`, `main.py`)
+- Report generation and cross-channel synthesis **using existing analyzers**
+- Updating `benchmark_channels.yaml` with validated URLs from `reports/channel_candidates.md`
+
+## Forbidden until gate clears
+
+- New analyzer modules (visual v2, motion v2, style evidence engine, knowledge graph, generation)
+- New synthesis stages beyond fixing `bible_synthesizer` bugs
+- Generation / image / video tooling
+
+## Current priority order
+
+1. Run Competitor Acquisition → `reports/channel_candidates.md`, `TOP_20_BENCHMARK_CHANNELS.md`
+2. Full pipeline on top 5 discovered channels
+3. Cross-channel synthesis with ≥5 complete channels
+4. Only then: Style Evidence Engine or Motion V2
+
+## Reference
+
+WhisprsYT (`whisprs_yt`) counts as **1 of 5** only if per-channel bibles exist under `reports/whisprs_yt/`.

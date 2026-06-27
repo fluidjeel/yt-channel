@@ -1,0 +1,29 @@
+# WhisprsYT reference channel — analysis profile
+data_dir: data
+reports_dir: reports
+artifacts_dir: artifacts
+
+ranking_weights:
+  total_views: 0.25
+  views_per_day: 0.35
+  engagement: 0.25
+  recency: 0.15
+
+max_videos_discover: null
+top_n_download: 20
+top_n_report: 20
+representative_frames: 100
+whisper_model: tiny
+
+frame_interval_seconds: 1.0
+scene_change_threshold: 30.0
+
+emotion_dimensions:
+  - hope
+  - loneliness
+  - love
+  - healing
+  - growth
+  - spirituality
+  - self-worth
+  - acceptance
