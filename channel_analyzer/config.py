@@ -48,6 +48,7 @@ class Config:
             "acceptance",
         ]
     )
+    yt_dlp_cookies_file: Path | None = None
 
     # --- Derived artifact paths (collector outputs) ---
     @property
@@ -166,9 +167,19 @@ class Config:
             "frame_interval_seconds",
             "scene_change_threshold",
             "emotion_dimensions",
+            "yt_dlp_cookies_file",
         ):
             if key in data:
-                setattr(cfg, key, data[key])
+                val = data[key]
+                if key == "yt_dlp_cookies_file" and val:
+                    setattr(cfg, key, PROJECT_ROOT / val)
+                else:
+                    setattr(cfg, key, val)
+        env_cookies = os.environ.get("YTDLP_COOKIES_FILE")
+        if env_cookies and Path(env_cookies).exists():
+            cfg.yt_dlp_cookies_file = Path(env_cookies)
+        elif cfg.yt_dlp_cookies_file and not cfg.yt_dlp_cookies_file.exists():
+            cfg.yt_dlp_cookies_file = None
         return cfg
 
 

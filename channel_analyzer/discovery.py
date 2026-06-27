@@ -14,6 +14,7 @@ from tqdm import tqdm
 from channel_analyzer.config import Config
 from channel_analyzer.utils import (
     days_since_upload,
+    merge_ytdlp_opts,
     normalize_channel_url,
     parse_upload_date,
     safe_float,
@@ -45,15 +46,18 @@ def _videos_url(channel_url: str) -> str:
     return url
 
 
-def _extract_flat_entries(channel_url: str) -> tuple[list[dict[str, Any]], str]:
+def _extract_flat_entries(channel_url: str, config: Config | None = None) -> tuple[list[dict[str, Any]], str]:
     """List all entries from channel Shorts tab, falling back to short videos."""
     shorts_url = _shorts_url(channel_url)
-    opts = {
-        "extract_flat": "in_playlist",
-        "quiet": True,
-        "no_warnings": True,
-        "ignoreerrors": True,
-    }
+    opts = merge_ytdlp_opts(
+        {
+            "extract_flat": "in_playlist",
+            "quiet": True,
+            "no_warnings": True,
+            "ignoreerrors": True,
+        },
+        config,
+    )
     with yt_dlp.YoutubeDL(opts) as ydl:
         try:
             info = ydl.extract_info(shorts_url, download=False)
@@ -82,18 +86,21 @@ def _is_short_duration(duration: float) -> bool:
     return 0 < duration <= 60
 
 
-def _enrich_entry(entry: dict[str, Any], source: str) -> dict[str, Any] | None:
+def _enrich_entry(entry: dict[str, Any], source: str, config: Config | None = None) -> dict[str, Any] | None:
     """Fetch full metadata for a single video."""
     video_id = entry.get("id") or entry.get("url", "").split("=")[-1]
     urls = [
         f"https://www.youtube.com/shorts/{video_id}",
         f"https://www.youtube.com/watch?v={video_id}",
     ]
-    opts = {
-        "quiet": True,
-        "no_warnings": True,
-        "skip_download": True,
-    }
+    opts = merge_ytdlp_opts(
+        {
+            "quiet": True,
+            "no_warnings": True,
+            "skip_download": True,
+        },
+        config,
+    )
     info: dict[str, Any] = entry
     for url in urls:
         try:
@@ -135,7 +142,7 @@ def discover_channel(channel_url: str, config: Config) -> Path:
     output_path = config.videos_csv
 
     logger.info("Discovering Shorts from %s", channel_url)
-    entries, source = _extract_flat_entries(channel_url)
+    entries, source = _extract_flat_entries(channel_url, config)
     if not entries:
         raise ValueError(
             f"No videos found for {channel_url}. "
@@ -150,7 +157,7 @@ def discover_channel(channel_url: str, config: Config) -> Path:
     rows: list[dict[str, Any]] = []
     for entry in tqdm(entries, desc="Fetching metadata"):
         try:
-            row = _enrich_entry(entry, source)
+            row = _enrich_entry(entry, source, config)
             if row:
                 rows.append(row)
         except Exception as exc:

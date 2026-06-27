@@ -6,6 +6,7 @@ import json
 import logging
 import re
 from datetime import datetime, timezone
+import os
 from pathlib import Path
 from typing import Any
 
@@ -91,6 +92,20 @@ def write_markdown(path: Path, title: str, sections: dict[str, str]) -> None:
     for heading, body in sections.items():
         lines.extend([f"## {heading}", "", body.strip(), ""])
     path.write_text("\n".join(lines), encoding="utf-8")
+
+
+def merge_ytdlp_opts(base: dict, config: Any | None = None) -> dict:
+    """Add cookiefile to yt-dlp opts when configured (avoids YouTube bot blocks on VMs)."""
+    opts = dict(base)
+    cookies: Path | None = None
+    if config is not None and getattr(config, "yt_dlp_cookies_file", None):
+        cookies = config.yt_dlp_cookies_file
+    env = os.environ.get("YTDLP_COOKIES_FILE")
+    if env and Path(env).exists():
+        cookies = Path(env)
+    if cookies and cookies.exists():
+        opts["cookiefile"] = str(cookies)
+    return opts
 
 
 def read_csv(path: Path) -> pd.DataFrame:

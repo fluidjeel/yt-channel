@@ -12,7 +12,7 @@ from tqdm import tqdm
 
 from channel_analyzer.comments.models import RawComment
 from channel_analyzer.config import Config
-from channel_analyzer.utils import load_json, read_csv, save_json
+from channel_analyzer.utils import load_json, merge_ytdlp_opts, read_csv, save_json
 
 logger = logging.getLogger(__name__)
 
@@ -50,6 +50,7 @@ def fetch_video_comments(
     url: str,
     max_comments: int = 500,
     cache_path: Path | None = None,
+    config: Config | None = None,
 ) -> list[RawComment]:
     """Fetch comments via yt-dlp; use cache when available."""
     if cache_path and cache_path.exists():
@@ -61,13 +62,16 @@ def fetch_video_comments(
             if (c := _parse_comment(item, video_id, channel)) is not None
         ]
 
-    opts: dict[str, Any] = {
-        "quiet": True,
-        "no_warnings": True,
-        "skip_download": True,
-        "getcomments": True,
-        "extractor_args": {"youtube": {"max_comments": [str(max_comments)]}},
-    }
+    opts: dict[str, Any] = merge_ytdlp_opts(
+        {
+            "quiet": True,
+            "no_warnings": True,
+            "skip_download": True,
+            "getcomments": True,
+            "extractor_args": {"youtube": {"max_comments": [str(max_comments)]}},
+        },
+        config,
+    )
 
     with yt_dlp.YoutubeDL(opts) as ydl:
         info = ydl.extract_info(url, download=False)
@@ -138,7 +142,7 @@ def collect_comments(
         channel = str(row.get("channel") or "")
         cache_path = cache_dir / f"{video_id}.json"
         comments = fetch_video_comments(
-            video_id, url, max_comments=max_comments_per_video, cache_path=cache_path
+            video_id, url, max_comments=max_comments_per_video, cache_path=cache_path, config=config
         )
         for c in comments:
             if not c.channel and channel:

@@ -36,5 +36,6 @@ Thumbs.db
 ssh-key*.key
 ssh-key*.key.pub
 oracle_key.pem
-*.pem
-!requirements.txt
+cookies/*.txt
+cookies/*.txt.*
+!cookies/README.md

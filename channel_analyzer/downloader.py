@@ -10,12 +10,12 @@ import yt_dlp
 from tqdm import tqdm
 
 from channel_analyzer.config import Config
-from channel_analyzer.utils import load_json, read_csv, save_json
+from channel_analyzer.utils import load_json, merge_ytdlp_opts, read_csv, save_json
 
 logger = logging.getLogger(__name__)
 
 
-def _download_single(video_id: str, url: str, out_dir: Path) -> dict:
+def _download_single(video_id: str, url: str, out_dir: Path, config: Config | None = None) -> dict:
     out_dir.mkdir(parents=True, exist_ok=True)
     video_path = out_dir / "video.mp4"
     thumb_path = out_dir / "thumbnail.jpg"
@@ -24,15 +24,18 @@ def _download_single(video_id: str, url: str, out_dir: Path) -> dict:
     if video_path.exists() and meta_path.exists():
         return load_json(meta_path)
 
-    opts = {
-        "outtmpl": str(out_dir / "video.%(ext)s"),
-        "writethumbnail": True,
-        "writeinfojson": False,
-        "quiet": True,
-        "no_warnings": True,
-        "format": "best[ext=mp4]/best",
-        "merge_output_format": "mp4",
-    }
+    opts = merge_ytdlp_opts(
+        {
+            "outtmpl": str(out_dir / "video.%(ext)s"),
+            "writethumbnail": True,
+            "writeinfojson": False,
+            "quiet": True,
+            "no_warnings": True,
+            "format": "best[ext=mp4]/best",
+            "merge_output_format": "mp4",
+        },
+        config,
+    )
 
     with yt_dlp.YoutubeDL(opts) as ydl:
         info = ydl.extract_info(url, download=True)
@@ -85,7 +88,7 @@ def download_top_videos(config: Config, top_csv: Path | None = None) -> list[Pat
         url = row["url"]
         out_dir = config.video_dir(video_id)
         try:
-            _download_single(video_id, url, out_dir)
+            _download_single(video_id, url, out_dir, config)
             dirs.append(out_dir)
         except Exception as exc:
             logger.error("Download failed for %s: %s", video_id, exc)

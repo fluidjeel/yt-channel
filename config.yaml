@@ -5,6 +5,9 @@ data_dir: data
 reports_dir: reports
 artifacts_dir: artifacts
 
+# Netscape-format cookies from browser (fixes YouTube bot blocks on cloud VMs)
+yt_dlp_cookies_file: cookies/youtube.txt
+
 # Performance ranking weights (must sum to 1.0)
 ranking_weights:
   total_views: 0.25
