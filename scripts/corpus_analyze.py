@@ -157,6 +157,7 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Corpus analyze batch (Phase B, offline)")
     parser.add_argument("--queue", type=Path, default=PROJECT_ROOT / "corpus_batch.yaml")
     parser.add_argument("--limit", type=int, default=0)
+    parser.add_argument("--slug", type=str, help="Analyze single channel slug only")
     parser.add_argument("--force", action="store_true", help="Re-analyze even if mvp_profile exists")
     parser.add_argument("--purge-artifacts", action="store_true")
     parser.add_argument("-v", "--verbose", action="store_true")
@@ -170,6 +171,11 @@ def main(argv: list[str] | None = None) -> int:
         return 1
 
     pipeline, entries = load_queue(args.queue)
+    if args.slug:
+        entries = [e for e in entries if e.slug == args.slug]
+        if not entries:
+            logger.error("Slug not in queue: %s", args.slug)
+            return 1
     purge = args.purge_artifacts or bool(pipeline.get("purge_artifacts_after_channel"))
 
     filtered: list[QueueEntry] = []

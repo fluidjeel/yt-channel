@@ -114,6 +114,7 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Corpus download batch (Phase A)")
     parser.add_argument("--queue", type=Path, default=PROJECT_ROOT / "corpus_batch.yaml")
     parser.add_argument("--limit", type=int, default=0)
+    parser.add_argument("--slug", type=str, help="Run single channel slug only")
     parser.add_argument("--skip-complete", action="store_true", help="Skip if top_n videos already on disk")
     parser.add_argument("-v", "--verbose", action="store_true")
     args = parser.parse_args(argv)
@@ -126,6 +127,11 @@ def main(argv: list[str] | None = None) -> int:
         return 1
 
     pipeline, entries = load_queue(args.queue)
+    if args.slug:
+        entries = [e for e in entries if e.slug == args.slug]
+        if not entries:
+            logger.error("Slug not in queue: %s", args.slug)
+            return 1
     target_n = int(pipeline.get("top_n_download") or 5)
     if args.limit > 0:
         entries = entries[: args.limit]
