@@ -1,4 +1,4 @@
-# Batch 3 — next channels not covered in batch 1/2 (reference + quote + self_improvement).
+# Batch 3 — FINAL batch (corpus iteration paused after this completes).
 pipeline:
   top_n_download: 5
   top_n_report: 5

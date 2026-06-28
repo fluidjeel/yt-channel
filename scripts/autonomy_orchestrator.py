@@ -23,6 +23,7 @@ if str(PROJECT_ROOT) not in sys.path:
 
 from scripts.corpus_common import (
     count_videos_on_disk,
+    iteration_paused,
     load_queue,
     mvp_exists,
     utc_now,
@@ -132,6 +133,13 @@ def orchestrate(queue_path: Path, *, dry_run: bool = False) -> dict[str, Any]:
 
     if status["tmux_corpus_batch"]:
         status["action"] = "batch_already_running"
+        _write_status(status)
+        return status
+
+    pause = iteration_paused()
+    if pause:
+        status["action"] = "iteration_paused"
+        status["pause"] = pause
         _write_status(status)
         return status
 

@@ -83,3 +83,19 @@ def mvp_exists(slug: str) -> bool:
 
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
+
+
+ITERATION_PAUSE_PATH = PROJECT_ROOT / "data" / "corpus" / "iteration_paused.json"
+
+
+def iteration_paused() -> dict[str, Any] | None:
+    """Return pause metadata if corpus iteration is stopped (no new batches)."""
+    if not ITERATION_PAUSE_PATH.exists():
+        return None
+    try:
+        data = json.loads(ITERATION_PAUSE_PATH.read_text(encoding="utf-8"))
+        if data.get("paused"):
+            return data
+    except (json.JSONDecodeError, OSError):
+        return {"paused": True, "reason": "iteration_paused.json present"}
+    return None

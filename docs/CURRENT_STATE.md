@@ -213,7 +213,7 @@ python scripts/corpus_sprint.py --queue corpus_queue_phase2.yaml
 
 Oracle: `tmux session corpus` via `scripts/start_corpus_tmux.sh` (defaults to phase1).
 
-**Unattended autonomy **SHIPPED**:** `scripts/autonomy_orchestrator.py` + `scripts/vm_guard.py`; laptop task `YT-Channel-Autonomy` (cookies + SSH tick every 30 min); Oracle `oracle-autonomy` tmux (15 min). See `docs/AUTONOMY_RUNBOOK.md`. PC must stay awake (no sleep/hibernate); screen lock OK.
+**Unattended autonomy **SHIPPED**:** `scripts/autonomy_orchestrator.py` + `scripts/vm_guard.py`; laptop task `YT-Channel-Autonomy` (cookies only after batch 3); Oracle `oracle-autonomy` tmux skips work when `data/corpus/iteration_paused.json` exists. See `docs/AUTONOMY_RUNBOOK.md`. **Corpus batches 1–3 **SHIPPED**; batch 3 is **FINAL** — pause via `scripts/pause_corpus_iteration.py`.
 
 **2025-06-27:** yt-dlp format fallback (`bestvideo*+bestaudio/best/b`) + `ignore_no_formats_error`; phase1 swaps `my_mind_garden` → `dark_poetry_hub`. Deno JS runtime wired in `merge_ytdlp_opts`. **Blocker:** stale YouTube cookies on Oracle — refresh via `docs/CORPUS_ORACLE_RUNBOOK.md` + `scripts/deploy_cookies_to_oracle.ps1`.
 

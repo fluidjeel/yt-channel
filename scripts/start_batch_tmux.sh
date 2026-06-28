@@ -11,6 +11,11 @@ mkdir -p "${HOME}/logs"
 exec >>"$LOG" 2>&1
 echo "=== corpus batch start $(date -Is) queue=$QUEUE ==="
 
+if [ -f data/corpus/iteration_paused.json ]; then
+  echo "Corpus iteration is paused — refusing to start batch (see data/corpus/iteration_paused.json)"
+  exit 0
+fi
+
 python scripts/corpus_download.py --queue "$QUEUE" --skip-complete
 
 echo "=== download phase done $(date -Is) ==="

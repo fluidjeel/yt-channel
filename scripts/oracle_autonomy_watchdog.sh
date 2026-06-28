@@ -11,7 +11,11 @@ mkdir -p "${HOME}/logs"
 
 while true; do
   echo "=== $(date -Is) autonomy tick ===" >>"$LOG"
-  python scripts/autonomy_orchestrator.py --queue "$QUEUE" >>"$LOG" 2>&1 || true
+  if [ -f data/corpus/iteration_paused.json ]; then
+    echo "corpus iteration paused — skipping orchestrator" >>"$LOG"
+  else
+    python scripts/autonomy_orchestrator.py --queue "$QUEUE" >>"$LOG" 2>&1 || true
+  fi
   python scripts/corpus_health.py --queue "$QUEUE" >>"$LOG" 2>&1 || true
   sleep "$INTERVAL"
 done
