@@ -5,7 +5,7 @@ $LogDir = Join-Path $Root "logs"
 $LogFile = Join-Path $LogDir "laptop_autonomy.log"
 $Python = Join-Path $Root ".venv\Scripts\python.exe"
 $Key = Join-Path $Root "ssh-key-2026-06-17.key"
-$Host = "ubuntu@80.225.234.65"
+$RemoteHost = "ubuntu@80.225.234.65"
 
 New-Item -ItemType Directory -Force -Path $LogDir | Out-Null
 $ts = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
@@ -27,7 +27,7 @@ cd ~/yt-channel && source .venv/bin/activate
 git pull -q 2>/dev/null || true
 python scripts/autonomy_orchestrator.py --queue corpus_batch.yaml
 '@
-        ssh -i "$Key" -o ConnectTimeout=25 -o BatchMode=yes $Host $remote 2>&1 |
+        ssh -i "$Key" -o ConnectTimeout=25 -o BatchMode=yes $RemoteHost $remote 2>&1 |
             Tee-Object -FilePath $LogFile -Append
     }
 } finally {
