@@ -1,0 +1,23 @@
+# Batch 2 — next 3 channels (batch 1 complete: soulful_lines, dark_poetry_hub).
+pipeline:
+  top_n_download: 5
+  top_n_report: 5
+  max_videos_discover: 20
+  max_video_duration_seconds: 180
+  max_download_mb: 500
+  max_batch_gb: 25
+  whisper_model: tiny
+  run_advanced_visual: false
+  run_comment_intelligence: false
+  run_bible_synthesis: false
+  purge_artifacts_after_channel: false
+phase: split_batch_2
+queue:
+  faceless_storytelling:
+  - slug: my_mind_garden
+    url: https://www.youtube.com/@MyMindGardenYT
+  quote_channels:
+  - slug: lofi_geisha
+    url: https://www.youtube.com/@lofigeisha
+  - slug: lofi_tokyo
+    url: https://www.youtube.com/@LoFi_TOKYOCITY
