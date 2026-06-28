@@ -1,4 +1,4 @@
-# Batch 2 — next 3 channels (batch 1 complete: soulful_lines, dark_poetry_hub).
+# Batch 2 — channels verified for Shorts discovery with fresh cookies.
 pipeline:
   top_n_download: 5
   top_n_report: 5
@@ -14,10 +14,11 @@ pipeline:
 phase: split_batch_2
 queue:
   faceless_storytelling:
-  - slug: my_mind_garden
-    url: https://www.youtube.com/@MyMindGardenYT
+  - slug: the_faceless_storyteller
+    url: https://www.youtube.com/@TheFacelessStoryteller
   quote_channels:
-  - slug: lofi_geisha
-    url: https://www.youtube.com/@lofigeisha
-  - slug: lofi_tokyo
-    url: https://www.youtube.com/@LoFi_TOKYOCITY
+  - slug: cozy_oni
+    url: https://www.youtube.com/@cozyoni
+  emotional_healing:
+  - slug: soulxsigh
+    url: https://www.youtube.com/channel/UC02xh2C0BZsEri175ZAU0tw
