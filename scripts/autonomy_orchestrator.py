@@ -59,6 +59,36 @@ def _last_log_by_slug(path: Path) -> dict[str, dict[str, Any]]:
     return out
 
 
+def _download_runs_for_slug(slug: str, *, tail: int = 5) -> list[dict[str, Any]]:
+    if not DOWNLOAD_LOG.exists():
+        return []
+    runs: list[dict[str, Any]] = []
+    for line in DOWNLOAD_LOG.read_text(encoding="utf-8").splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        try:
+            rec = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        if rec.get("slug") == slug and rec.get("phase") == "download":
+            runs.append(rec)
+    return runs[-tail:]
+
+
+def _download_stuck(slug: str, target: int) -> bool:
+    """Skip retry when recent runs add nothing (do not block analyze)."""
+    runs = _download_runs_for_slug(slug, tail=3)
+    if len(runs) < 2:
+        return False
+    recent = runs[-2:]
+    if all(int(r.get("videos_added") or 0) == 0 for r in recent):
+        on_disk = int(recent[-1].get("videos_on_disk") or 0)
+        if 0 < on_disk < target:
+            return True
+    return False
+
+
 def _cleanup_invalid_downloads(slug: str) -> int:
     """Remove download dirs without video.mp4 (partial/failed yt-dlp)."""
     dls = PROJECT_ROOT / "artifacts" / "channels" / slug / "downloads"
@@ -119,8 +149,11 @@ def orchestrate(queue_path: Path, *, dry_run: bool = False) -> dict[str, Any]:
             n = count_videos_on_disk(entry.slug)
 
         if n < target:
-            download_queue.append(entry.slug)
-        elif n >= 1:
+            if not _download_stuck(entry.slug, target):
+                download_queue.append(entry.slug)
+            else:
+                status.setdefault("download_skipped_stuck", []).append(entry.slug)
+        elif n >= target:
             dl = dl_last.get(entry.slug, {})
             an = an_last.get(entry.slug, {})
             dl_ts = dl.get("finished_at") or ""
@@ -138,22 +171,7 @@ def orchestrate(queue_path: Path, *, dry_run: bool = False) -> dict[str, Any]:
         _write_status(status)
         return status
 
-    # One unit of work per invocation (avoid VM spike)
-    if download_queue:
-        slug = download_queue[0]
-        status["action"] = f"download_{slug}"
-        if not dry_run:
-            code = _run_py(
-                "corpus_download.py",
-                "--queue",
-                str(queue_path),
-                "--slug",
-                slug,
-            )
-            status["work_done"].append({"download": slug, "exit_code": code})
-        _write_status(status)
-        return status
-
+    # Analyze ready channels before retrying partial downloads (unattended priority).
     if analyze_queue:
         slug = analyze_queue[0]
         status["action"] = f"analyze_{slug}"
@@ -170,7 +188,21 @@ def orchestrate(queue_path: Path, *, dry_run: bool = False) -> dict[str, Any]:
         _write_status(status)
         return status
 
-    # Full batch only if nothing left and queue has never completed end-to-end
+    if download_queue:
+        slug = download_queue[0]
+        status["action"] = f"download_{slug}"
+        if not dry_run:
+            code = _run_py(
+                "corpus_download.py",
+                "--queue",
+                str(queue_path),
+                "--slug",
+                slug,
+            )
+            status["work_done"].append({"download": slug, "exit_code": code})
+        _write_status(status)
+        return status
+
     status["action"] = "nothing_pending"
     _run_py("corpus_health.py", "--queue", str(queue_path))
     _write_status(status)
