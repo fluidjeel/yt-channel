@@ -17,7 +17,17 @@ python scripts/youtube_cookie_sync.py --deploy --restart-batch
 
 Persistent login profile: `cookies/browser_profile/` (never commit).
 
-## 2. DevTools header (manual)
+### Windows: every 30 minutes (unattended)
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/install_cookie_sync_task.ps1
+powershell -File scripts/run_cookie_sync_scheduled.ps1   # test once
+# Log: logs/cookie_sync.log
+powershell -File scripts/install_cookie_sync_task.ps1 -Unregister
+```
+
+Refreshes cookies on Oracle only (does **not** restart corpus-batch each run).
+
 
 Paste Cookie header → `cookies/raw_header.txt` → `python scripts/convert_cookie_header.py`
 
