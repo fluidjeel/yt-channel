@@ -21,12 +21,7 @@ try {
 
     # 2) One safe orchestrator tick on Oracle (download/analyze one step if needed)
     if (Test-Path $Key) {
-        $remote = @'
-export PATH=$HOME/.deno/bin:$PATH
-cd ~/yt-channel && source .venv/bin/activate
-git pull -q 2>/dev/null || true
-python scripts/autonomy_orchestrator.py --queue corpus_batch.yaml
-'@
+        $remote = 'export PATH=$HOME/.deno/bin:$PATH; cd ~/yt-channel && .venv/bin/python scripts/autonomy_orchestrator.py --queue corpus_batch.yaml'
         ssh -i "$Key" -o ConnectTimeout=25 -o BatchMode=yes $RemoteHost $remote 2>&1 |
             Tee-Object -FilePath $LogFile -Append
     }
