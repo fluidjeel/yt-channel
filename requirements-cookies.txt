@@ -1,0 +1,3 @@
+# Optional — YouTube cookie sync (scripts/youtube_cookie_sync.py)
+# Install: pip install -r requirements-cookies.txt && playwright install chromium
+playwright>=1.40.0

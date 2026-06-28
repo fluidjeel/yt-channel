@@ -197,7 +197,8 @@ Scale validation before creator interviews. No new analyzers.
 | `scripts/corpus_sprint.py` | Queue → pipeline → assembler; `data/corpus/run_log.jsonl` |
 | `scripts/analyze_corpus.py` | Failure patterns → `reports/corpus_analysis.md` |
 | `scripts/corpus_monitor.py` | Progress snapshot; `--watch` or cron every 30 min |
-| `scripts/install_corpus_cron.sh` | Install monitor cron on Oracle VM |
+| `scripts/youtube_cookie_sync.py` | Playwright → Netscape cookies → optional Oracle SCP **SHIPPED** |
+| `requirements-cookies.txt` | Optional `playwright` dep (not in core pipeline) |
 
 **Phased workflow:**
 

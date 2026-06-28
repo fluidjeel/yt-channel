@@ -8,27 +8,33 @@
 2. **Fresh YouTube cookies** in Netscape format at `cookies/youtube.txt` (gitignored)
 3. Deno on VM (`~/.deno/bin`) — installed by `scripts/setup_oracle_worker.sh`
 
-## Cookie refresh (HITL — required when downloads fail with bot check)
+## Cookie refresh
 
-YouTube rotates session cookies. Stale cookies show:
+YouTube rotates session cookies. Stale cookies show bot-check errors on Oracle.
 
-```text
-Sign in to confirm you're not a bot
-The provided YouTube account cookies are no longer valid
+### Playwright sync (recommended) **SHIPPED**
+
+```powershell
+pip install -r requirements-cookies.txt
+playwright install chromium
+
+# First time — sign in when Chromium opens
+python scripts/youtube_cookie_sync.py --headed --deploy --smoke --restart-batch
+
+# Refresh profile + redeploy (after first login)
+python scripts/youtube_cookie_sync.py --deploy --smoke --restart-batch
+
+# Redeploy existing cookies/youtube.txt without opening browser
+python scripts/youtube_cookie_sync.py --deploy-only --smoke --restart-batch
 ```
 
-**Steps:**
+Profile: `cookies/browser_profile/` (gitignored). No API key replaces cookies for video download.
 
-1. In Chrome (logged into YouTube), open DevTools → Network → any `youtube.com` request → copy **Cookie** header value.
-2. Save to `cookies/raw_header.txt` (gitignored).
-3. Run: `python scripts/convert_cookie_header.py`
-4. Deploy: `powershell scripts/deploy_cookies_to_oracle.ps1`
+### Manual fallback
 
-Smoke test on VM should list video formats (not just storyboard):
-
-```bash
-yt-dlp --cookies cookies/youtube.txt -F 'https://www.youtube.com/shorts/ab3Zy4c32lw' | head -20
-```
+1. DevTools → copy **Cookie** header → `cookies/raw_header.txt`
+2. `python scripts/convert_cookie_header.py`
+3. `python scripts/youtube_cookie_sync.py --deploy-only --restart-batch`
 
 ## Phased corpus sprint
 

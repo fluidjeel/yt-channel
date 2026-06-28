@@ -1,15 +1,34 @@
-# YouTube cookies (HITL — one-time setup)
+# YouTube cookies
 
-Oracle VM IPs often trigger YouTube bot checks. Export cookies once:
+Oracle VM IPs trigger YouTube bot checks. Three ways to refresh `cookies/youtube.txt` (gitignored):
 
-1. Install **Get cookies.txt LOCALLY** (Chrome) or use `yt-dlp --cookies-from-browser chrome`
-2. Save as `cookies/youtube.txt` (Netscape format)
-3. Copy to VM:
+## 1. Playwright sync (recommended)
 
 ```powershell
-scp -i .\ssh-key-2026-06-17.key .\cookies\youtube.txt ubuntu@80.225.234.65:~/yt-channel/cookies/youtube.txt
+pip install -r requirements-cookies.txt
+playwright install chromium
+
+# First time: sign in when the browser opens
+python scripts/youtube_cookie_sync.py --headed --deploy --smoke --restart-batch
+
+# Later: headless refresh + deploy
+python scripts/youtube_cookie_sync.py --deploy --restart-batch
 ```
 
-4. Restart corpus sprint (or let next channel pick up cookies after pull)
+Persistent login profile: `cookies/browser_profile/` (never commit).
 
-Also set locally for Windows runs: same file path `cookies/youtube.txt`.
+## 2. DevTools header (manual)
+
+Paste Cookie header → `cookies/raw_header.txt` → `python scripts/convert_cookie_header.py`
+
+## 3. Browser extension
+
+Export Netscape format to `cookies/youtube.txt`.
+
+## Deploy only
+
+```powershell
+powershell scripts/deploy_cookies_to_oracle.ps1
+# or
+python scripts/youtube_cookie_sync.py --deploy --restart-batch
+```

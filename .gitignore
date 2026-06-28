@@ -39,4 +39,5 @@ oracle_key.pem
 cookies/*.txt
 cookies/*.txt.*
 cookies/raw_header.txt
+cookies/browser_profile/
 !cookies/README.md
