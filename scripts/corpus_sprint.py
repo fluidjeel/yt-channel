@@ -15,6 +15,7 @@ from __future__ import annotations
 import argparse
 import json
 import logging
+import shutil
 import sys
 import time
 import traceback
@@ -99,12 +100,35 @@ def _is_complete(slug: str) -> bool:
     return mvp.exists()
 
 
+# Bulky artifact dirs removed after each channel when purge is enabled (keeps data/ + reports/).
+_PURGE_ARTIFACT_SUBDIRS = (
+    "downloads",
+    "top_frames",
+    "advanced_visual_cache",
+    "_frames_cache",
+    "comments_cache",
+)
+
+
+def _purge_channel_artifacts(cfg: Config) -> list[str]:
+    """Delete heavy media under artifacts/channels/{slug}/; CSVs and reports are kept."""
+    removed: list[str] = []
+    for sub in _PURGE_ARTIFACT_SUBDIRS:
+        path = cfg.artifacts_dir / sub
+        if path.exists():
+            shutil.rmtree(path)
+            removed.append(sub)
+            logger.info("Purged %s for %s", path, cfg.reports_dir.name)
+    return removed
+
+
 def run_one(
     entry: QueueEntry,
     pipeline_cfg: dict[str, Any],
     base: Config,
     *,
     dry_run: bool = False,
+    purge_artifacts: bool = False,
 ) -> dict[str, Any]:
     started = datetime.now(timezone.utc).isoformat()
     t0 = time.monotonic()
@@ -168,6 +192,14 @@ def run_one(
         pipeline_status = "failed"
     _write_meta(cfg, entry.slug, entry.niche, pipeline_status)
 
+    purged: list[str] = []
+    if purge_artifacts and not dry_run:
+        try:
+            purged = _purge_channel_artifacts(cfg)
+        except Exception as exc:
+            errors.append(f"purge: {exc}")
+            logger.warning("Artifact purge failed for %s: %s", entry.slug, exc)
+
     record.update(
         {
             "status": "complete" if mvp_ok else "failed",
@@ -175,6 +207,7 @@ def run_one(
             "mvp_profile": mvp_ok,
             "channel_report": report_ok,
             "errors": errors,
+            "purged_artifacts": purged,
             "duration_sec": round(time.monotonic() - t0, 1),
             "finished_at": datetime.now(timezone.utc).isoformat(),
         }
@@ -193,6 +226,11 @@ def main(argv: list[str] | None = None) -> int:
         help="Re-run even if mvp_profile.json exists or status is complete",
     )
     parser.add_argument("--dry-run", action="store_true")
+    parser.add_argument(
+        "--purge-artifacts",
+        action="store_true",
+        help="Delete downloads/frames/cache after each channel (also from queue pipeline.purge_artifacts_after_channel)",
+    )
     parser.add_argument("-v", "--verbose", action="store_true")
     args = parser.parse_args(argv)
 
@@ -220,11 +258,20 @@ def main(argv: list[str] | None = None) -> int:
 
     base = Config.from_yaml()
     ok = fail = 0
+    purge = args.purge_artifacts or bool(pipeline_cfg.get("purge_artifacts_after_channel"))
+    if purge:
+        logger.info("Artifact purge enabled after each channel")
 
     for i, entry in enumerate(entries, 1):
         logger.info("[%d/%d] %s (%s)", i, len(entries), entry.slug, entry.niche)
         try:
-            record = run_one(entry, pipeline_cfg, base, dry_run=args.dry_run)
+            record = run_one(
+                entry,
+                pipeline_cfg,
+                base,
+                dry_run=args.dry_run,
+                purge_artifacts=purge,
+            )
         except Exception:
             record = {
                 "slug": entry.slug,

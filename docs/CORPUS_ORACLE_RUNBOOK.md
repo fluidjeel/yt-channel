@@ -54,3 +54,25 @@ Monitor: `tmux attach -t corpus` or `python scripts/corpus_monitor.py --watch`
 | Strict mp4 format | Fixed: `bestvideo*+bestaudio/best/b` |
 
 Do **not** start phase 2 until phase 1 shows ≥1 `pipeline_status: full`.
+
+## Option A — micro pilot (disk-safe) **SHIPPED**
+
+Lite full pass: **5 videos**, no advanced visual/comments, **purge MP4s after each channel**.
+
+| File | Purpose |
+| --- | --- |
+| `corpus_queue_micro.yaml` | 3 channels, lite pipeline overrides |
+| `scripts/start_micro_corpus_tmux.sh` | tmux runner with `--purge-artifacts` |
+
+```bash
+# One channel at a time (recommended first)
+CORPUS_LIMIT=1 bash scripts/start_micro_corpus_tmux.sh
+
+# All 3 micro channels (sequential, purge between)
+bash scripts/start_micro_corpus_tmux.sh
+
+# Re-run completed slugs
+CORPUS_FORCE=1 bash scripts/start_micro_corpus_tmux.sh
+```
+
+Keeps `data/channels/{slug}/` and `reports/{slug}/`; deletes `artifacts/.../downloads`, frames, caches.
