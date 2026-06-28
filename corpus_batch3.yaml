@@ -1,0 +1,24 @@
+# Batch 3 — next channels not covered in batch 1/2 (reference + quote + self_improvement).
+pipeline:
+  top_n_download: 5
+  top_n_report: 5
+  max_videos_discover: 20
+  max_video_duration_seconds: 180
+  max_download_mb: 500
+  max_batch_gb: 25
+  whisper_model: tiny
+  run_advanced_visual: false
+  run_comment_intelligence: false
+  run_bible_synthesis: false
+  purge_artifacts_after_channel: false
+phase: split_batch_3
+queue:
+  emotional_healing:
+  - slug: whisprs_yt
+    url: https://www.youtube.com/@WhisprsYT
+  quote_channels:
+  - slug: lofi_tokyo
+    url: https://www.youtube.com/@LoFi_TOKYOCITY
+  self_improvement:
+  - slug: uck_jep_r7_jm_s36taj_d34_gp4_va
+    url: https://www.youtube.com/channel/UCkJEpR7JmS36tajD34Gp4VA

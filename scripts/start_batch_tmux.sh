@@ -13,13 +13,9 @@ echo "=== corpus batch start $(date -Is) queue=$QUEUE ==="
 
 python scripts/corpus_download.py --queue "$QUEUE" --skip-complete
 
-ANALYZE_EXTRA=()
-if [ "${CORPUS_FORCE:-0}" = "1" ]; then
-  ANALYZE_EXTRA+=(--force)
-fi
 echo "=== download phase done $(date -Is) ==="
 
-python scripts/corpus_analyze.py --queue "$QUEUE" "${ANALYZE_EXTRA[@]}"
+python scripts/corpus_analyze.py --queue "$QUEUE" --force
 echo "=== analyze phase done $(date -Is) ==="
 
 python scripts/corpus_health.py --queue "$QUEUE"
