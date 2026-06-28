@@ -1,4 +1,4 @@
-# Option A — lite full pass: 5 videos, no advanced visual/comments, purge media after each channel.
+# Option A — lite full pass: 5 videos, no advanced visual/comments; keep downloads on disk.
 pipeline:
   top_n_download: 5
   top_n_report: 5
@@ -7,8 +7,8 @@ pipeline:
   run_advanced_visual: false
   run_comment_intelligence: false
   run_bible_synthesis: false
-  purge_artifacts_after_channel: true
-phase: micro_pilot (3 channels, disk-safe)
+  purge_artifacts_after_channel: false
+phase: micro_pilot (3 channels)
 parent_queue: corpus_queue_phase1.yaml
 queue:
   emotional_healing:

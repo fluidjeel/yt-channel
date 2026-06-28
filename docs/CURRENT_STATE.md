@@ -190,7 +190,7 @@ Scale validation before creator interviews. No new analyzers.
 | --- | --- |
 | `corpus_queue.yaml` | Full list (52 channels; target 100) |
 | `corpus_queue_phase1.yaml` | **10% pilot** (5 channels, full cycle + `--force`) |
-| `corpus_queue_micro.yaml` | **Option A** — 3 channels, 5 videos each, purge media after each |
+| `corpus_queue_micro.yaml` | **Option A** — 3 channels, 5 videos each (downloads kept) |
 | `corpus_queue_phase2.yaml` | **60% scale** (31 channels) — run after phase 1 gate |
 | `scripts/build_corpus_phases.py` | Regenerate phase1/phase2 from main queue |
 | `scripts/corpus_sprint.py` | Queue → pipeline → assembler; `data/corpus/run_log.jsonl` |

@@ -55,24 +55,24 @@ Monitor: `tmux attach -t corpus` or `python scripts/corpus_monitor.py --watch`
 
 Do **not** start phase 2 until phase 1 shows ≥1 `pipeline_status: full`.
 
-## Option A — micro pilot (disk-safe) **SHIPPED**
+## Option A — micro pilot **SHIPPED**
 
-Lite full pass: **5 videos**, no advanced visual/comments, **purge MP4s after each channel**.
+Lite full pass: **5 videos**, no advanced visual/comments. **Downloads kept** under `artifacts/channels/{slug}/downloads/` (opt-in purge via `CORPUS_PURGE=1` or `--purge-artifacts`).
 
 | File | Purpose |
 | --- | --- |
 | `corpus_queue_micro.yaml` | 3 channels, lite pipeline overrides |
-| `scripts/start_micro_corpus_tmux.sh` | tmux runner with `--purge-artifacts` |
+| `scripts/start_micro_corpus_tmux.sh` | tmux runner (no purge by default) |
 
 ```bash
 # One channel at a time (recommended first)
 CORPUS_LIMIT=1 bash scripts/start_micro_corpus_tmux.sh
 
-# All 3 micro channels (sequential, purge between)
+# All 3 micro channels (sequential)
 bash scripts/start_micro_corpus_tmux.sh
 
-# Re-run completed slugs
-CORPUS_FORCE=1 bash scripts/start_micro_corpus_tmux.sh
+# Optional: delete MP4s after each channel (disk-constrained VMs)
+CORPUS_PURGE=1 bash scripts/start_micro_corpus_tmux.sh
 ```
 
-Keeps `data/channels/{slug}/` and `reports/{slug}/`; deletes `artifacts/.../downloads`, frames, caches.
+Keeps `data/channels/{slug}/`, `reports/{slug}/`, and download artifacts unless purge is enabled.
