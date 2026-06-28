@@ -2,10 +2,11 @@
 
 from __future__ import annotations
 
-import json
 import logging
+import shutil
 from pathlib import Path
 
+import pandas as pd
 import yt_dlp
 from tqdm import tqdm
 
@@ -15,6 +16,27 @@ from channel_analyzer.utils import load_json, merge_ytdlp_opts, read_csv, save_j
 logger = logging.getLogger(__name__)
 
 
+def _duration_ok(row, config: Config) -> bool:
+    cap = config.max_video_duration_seconds
+    if cap is None:
+        return True
+    dur = row.get("duration_seconds")
+    if dur is None or (isinstance(dur, float) and dur != dur):
+        return True
+    try:
+        return float(dur) <= float(cap)
+    except (TypeError, ValueError):
+        return True
+
+
+def _size_ok(video_path: Path, config: Config) -> bool:
+    cap_mb = config.max_download_mb
+    if cap_mb is None or not video_path.exists():
+        return True
+    size_mb = video_path.stat().st_size / (1024 * 1024)
+    return size_mb <= float(cap_mb)
+
+
 def _download_single(video_id: str, url: str, out_dir: Path, config: Config | None = None) -> dict:
     out_dir.mkdir(parents=True, exist_ok=True)
     video_path = out_dir / "video.mp4"
@@ -22,7 +44,17 @@ def _download_single(video_id: str, url: str, out_dir: Path, config: Config | No
     meta_path = out_dir / "metadata.json"
 
     if video_path.exists() and meta_path.exists():
-        return load_json(meta_path)
+        meta = load_json(meta_path)
+        if config and not _size_ok(video_path, config):
+            logger.warning(
+                "Removing %s — %.1f MB exceeds max_download_mb=%s",
+                video_id,
+                video_path.stat().st_size / (1024 * 1024),
+                config.max_download_mb,
+            )
+            shutil.rmtree(out_dir)
+        else:
+            return meta
 
     opts = merge_ytdlp_opts(
         {
@@ -50,6 +82,13 @@ def _download_single(video_id: str, url: str, out_dir: Path, config: Config | No
             if not thumb_path.exists():
                 f.rename(thumb_path)
 
+    if config and not _size_ok(video_path, config):
+        size_mb = video_path.stat().st_size / (1024 * 1024)
+        shutil.rmtree(out_dir)
+        raise ValueError(
+            f"Downloaded {video_id} is {size_mb:.1f} MB; max_download_mb={config.max_download_mb}"
+        )
+
     metadata = {
         "video_id": video_id,
         "title": info.get("title"),
@@ -70,6 +109,9 @@ def download_top_videos(config: Config, top_csv: Path | None = None) -> list[Pat
     """
     Download video, thumbnail, and metadata for top N videos.
 
+    Skips videos over max_video_duration_seconds; tries further ranked rows.
+    Removes downloads over max_download_mb.
+
     Returns list of per-video download directories.
     """
     config.ensure_dirs()
@@ -78,12 +120,34 @@ def download_top_videos(config: Config, top_csv: Path | None = None) -> list[Pat
     if df.empty:
         raise FileNotFoundError(f"No top videos at {source}.")
 
-    top = df[df["top_50"] == True].head(config.top_n_download)  # noqa: E712
-    if top.empty:
-        top = df.head(config.top_n_download)
+    ranked = df[df["top_50"] == True].copy()  # noqa: E712
+    if ranked.empty:
+        ranked = df.copy()
+    if "rank" in ranked.columns:
+        ranked = ranked.sort_values("rank")
+    elif "composite_score" in ranked.columns:
+        ranked = ranked.sort_values("composite_score", ascending=False)
+
+    target = config.top_n_download
+    candidates = ranked
+    if len(candidates) < target and "composite_score" in df.columns:
+        extra = df.sort_values("composite_score", ascending=False)
+        candidates = pd.concat([ranked, extra]).drop_duplicates(subset=["video_id"])
 
     dirs: list[Path] = []
-    for _, row in tqdm(top.iterrows(), total=len(top), desc="Downloading videos"):
+    skipped_duration = 0
+    for _, row in candidates.iterrows():
+        if len(dirs) >= target:
+            break
+        if not _duration_ok(row, config):
+            skipped_duration += 1
+            logger.info(
+                "Skip %s — duration %ss > cap %ss",
+                row.get("video_id"),
+                row.get("duration_seconds"),
+                config.max_video_duration_seconds,
+            )
+            continue
         video_id = str(row["video_id"])
         url = row["url"]
         out_dir = config.video_dir(video_id)
@@ -92,5 +156,7 @@ def download_top_videos(config: Config, top_csv: Path | None = None) -> list[Pat
             dirs.append(out_dir)
         except Exception as exc:
             logger.error("Download failed for %s: %s", video_id, exc)
-    logger.info("Downloaded %d / %d videos", len(dirs), len(top))
+    if skipped_duration:
+        logger.info("Skipped %d candidates over duration cap", skipped_duration)
+    logger.info("Downloaded %d / %d videos", len(dirs), target)
     return dirs

@@ -21,6 +21,8 @@ def apply_pipeline_overrides(cfg: Config, overrides: dict) -> Config:
         "top_n_download",
         "top_n_report",
         "max_videos_discover",
+        "max_video_duration_seconds",
+        "max_download_mb",
         "whisper_model",
     ):
         if key in overrides and overrides[key] is not None:

@@ -55,7 +55,24 @@ Monitor: `tmux attach -t corpus` or `python scripts/corpus_monitor.py --watch`
 
 Do **not** start phase 2 until phase 1 shows ≥1 `pipeline_status: full`.
 
-## Option A — micro pilot **SHIPPED**
+## Split batch (download → analyze) **SHIPPED**
+
+Cookie window for downloads only; analysis runs offline from disk.
+
+| Script | Phase |
+| --- | --- |
+| `scripts/corpus_download.py` | A — discover + download (respects `max_batch_gb`, duration/MB caps) |
+| `scripts/corpus_analyze.py` | B — steps 4–11 + assembler (no YouTube) |
+| `scripts/corpus_health.py` | VM + progress snapshot → `reports/corpus_health.md` |
+| `corpus_batch.yaml` | 3 channels, 5 videos, 25 GB cap |
+| `scripts/start_batch_tmux.sh` | Download then analyze unattended |
+| `scripts/start_health_watch_tmux.sh` | Health every 15 min |
+
+```bash
+tmux new-session -d -s corpus-batch 'bash scripts/start_batch_tmux.sh'
+tmux new-session -d -s health 'bash scripts/start_health_watch_tmux.sh'
+cat reports/corpus_health.md
+```
 
 Lite full pass: **5 videos**, no advanced visual/comments. **Downloads kept** under `artifacts/channels/{slug}/downloads/` (opt-in purge via `CORPUS_PURGE=1` or `--purge-artifacts`).
 

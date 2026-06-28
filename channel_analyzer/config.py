@@ -32,6 +32,8 @@ class Config:
     top_n_download: int = 50
     top_n_report: int = 20
     max_videos_discover: int | None = None
+    max_video_duration_seconds: float | None = None
+    max_download_mb: float | None = None
     representative_frames: int = 100
     whisper_model: str = "base"
     frame_interval_seconds: float = 1.0
@@ -162,6 +164,8 @@ class Config:
             "top_n_download",
             "top_n_report",
             "max_videos_discover",
+            "max_video_duration_seconds",
+            "max_download_mb",
             "representative_frames",
             "whisper_model",
             "frame_interval_seconds",
