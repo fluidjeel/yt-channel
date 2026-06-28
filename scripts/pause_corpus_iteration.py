@@ -6,9 +6,12 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+from datetime import datetime, timezone
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
 PAUSE_PATH = PROJECT_ROOT / "data" / "corpus" / "iteration_paused.json"
 
 
@@ -28,11 +31,9 @@ def main(argv: list[str] | None = None) -> int:
         return 0
 
     PAUSE_PATH.parent.mkdir(parents=True, exist_ok=True)
-    from scripts.corpus_common import utc_now
-
     payload = {
         "paused": True,
-        "paused_at": utc_now(),
+        "paused_at": datetime.now(timezone.utc).isoformat(),
         "reason": args.reason,
         "final_queue": args.final_queue,
     }
